@@ -8,5 +8,6 @@ class GameUI():
 
     def view(self):
         seed = self.seed_ui.view()
-        #board_size = 4
-        #board = Board(seed, board_size)
+        board_size = 4
+        board = Board(seed, board_size)
+        print(board.board)
