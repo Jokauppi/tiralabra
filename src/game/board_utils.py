@@ -2,8 +2,8 @@ import numpy as np
 from enum import Enum
 
 class Utils():
-    def __init__(self, seed):
-        self.seed = seed
+    def __init__(self):
+        pass
     
     def empty_tiles(board):
         tiles = board.board
@@ -14,10 +14,10 @@ class Utils():
                     empty_tiles.append(it.multi_index)
         return(empty_tiles)
 
-    def move_line_forwards():
+    def move_line_forwards(line):
         pass
 
-    def move_line_backwards():
+    def move_line_backwards(line):
         pass
 
 class BoardState(Enum):

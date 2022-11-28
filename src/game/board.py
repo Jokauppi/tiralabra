@@ -17,28 +17,41 @@ class Board():
         self.state = BoardState.INPROGRESS
 
     def up(self):
-        pass
+        for col in range(self.size):
+            self.__set_column(col, utils.move_line_backwards(self.__get_column(col)))
 
     def down(self):
-        pass
+        for col in range(self.size):
+            self.__set_column(col, utils.move_line_forwards(self.__get_column(col)))
 
     def left(self):
-        pass
+        for row in range(self.size):
+            self.__set_row(row, utils.move_line_backwards(self.__get_row(row)))
 
     def right(self):
-        pass
+        for row in range(self.size):
+            self.__set_row(row, utils.move_line_forwards(self.__get_row(row)))
 
     def __check_state(self):
         pass
 
+    # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing istead of a 2
     def __add_number(self):
         empty_tiles = utils.empty_tiles(self)
         chosen_tile = empty_tiles[random.randrange(len(empty_tiles))]
-        print(chosen_tile)
-        self.board[chosen_tile[0]][chosen_tile[1]] = 2      
+        new_number = 2
+        if random.randrange(10) == 0:
+            new_number = 4
+        self.board[chosen_tile[0]][chosen_tile[1]] = new_number
 
-    def __get_row(self):
-        pass
+    def __get_row(self, index):
+        return self.board[index, :]
 
-    def __get_column(self):
-        pass
+    def __get_column(self, index):
+        return self.board[:, index]
+
+    def __set_row(self, index, values):
+        self.board[index, :] = values
+
+    def __set_column(self, index, values):
+        self.board[:, index] = values
