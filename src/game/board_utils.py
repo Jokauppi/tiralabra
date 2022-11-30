@@ -18,6 +18,9 @@ class Utils():
         
         p1=len(line)-2
         p2=len(line)-1
+
+        modified = False
+
         while True:
             if p1==-1:
                 break
@@ -25,6 +28,7 @@ class Utils():
                 line[p2]=line[p1]
                 line[p1]=0
                 p1-=1
+                modified = True
             elif line[p1]==0:
                 p1-=1
             elif line[p1]==line[p2]:
@@ -32,6 +36,7 @@ class Utils():
                 line[p1]=0
                 p1-=1
                 p2-=1
+                modified = True
             elif line[p1]>0 and line[p2]>0:
                 if p2-1==p1:
                     p1-=1
@@ -41,11 +46,42 @@ class Utils():
             else:
                 raise Exception("unnoticed line push case")
         
-        return line
+        return (line, modified)
 
     def move_line_backwards(line):
-
-        return line
+        
+        max=len(line)
+        p1=0
+        p2=1
+        
+        modified = False
+        
+        while True:
+            if p2==max:
+                break
+            elif line[p2]>0 and line[p1]==0:
+                line[p1]=line[p2]
+                line[p2]=0
+                p2+=1
+                modified = True
+            elif line[p2]==0:
+                p2+=1
+            elif line[p1]==line[p2]:
+                line[p1]=line[p1]+line[p2]
+                line[p2]=0
+                p1+=1
+                p2+=1
+                modified = True
+            elif line[p1]>0 and line[p2]>0:
+                if p1+1==p2:
+                    p1+=1
+                    p2+=1
+                else:
+                    p1+=1
+            else:
+                raise Exception("unnoticed line push case")
+        
+        return (line, modified)
 
 class BoardState(Enum):
     INPROGRESS = 1

@@ -17,24 +17,52 @@ class Board():
         self.state = BoardState.INPROGRESS
 
     def up(self):
+        print("↑")
+        modified=False
         for col in range(self.size):
-            self.__set_column(col, utils.move_line_backwards(self.__get_column(col)))
-        self.__add_number()
+            old_line = self.__get_column(col)
+            (new_line, line_modified) = utils.move_line_backwards(old_line)
+            if line_modified:
+                self.__set_column(col, new_line)
+                modified = True
+        if modified:
+            self.__add_number()
 
     def down(self):
+        print("↓")
+        modified=False
         for col in range(self.size):
-            self.__set_column(col, utils.move_line_forwards(self.__get_column(col)))
-        self.__add_number()
+            old_line = self.__get_column(col)
+            (new_line, line_modified) = utils.move_line_forwards(old_line)
+            if line_modified:
+                self.__set_column(col, new_line)
+                modified = True
+        if modified:
+            self.__add_number()
 
     def left(self):
+        print("←")
+        modified=False
         for row in range(self.size):
-            self.__set_row(row, utils.move_line_backwards(self.__get_row(row)))
-        self.__add_number()
-        
+            old_line = self.__get_row(row)
+            (new_line, line_modified) = utils.move_line_backwards(old_line)
+            if line_modified:
+                self.__set_row(row, new_line)
+                modified = True
+        if modified:
+            self.__add_number()
+
     def right(self):
+        print("→")
+        modified=False
         for row in range(self.size):
-            self.__set_row(row, utils.move_line_forwards(self.__get_row(row)))
-        self.__add_number()
+            old_line = self.__get_row(row)
+            (new_line, line_modified) = utils.move_line_forwards(old_line)
+            if line_modified:
+                self.__set_row(row, new_line)
+                modified = True
+        if modified:
+            self.__add_number()
 
     def __check_state(self):
         pass
