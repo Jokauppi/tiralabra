@@ -19,18 +19,22 @@ class Board():
     def up(self):
         for col in range(self.size):
             self.__set_column(col, utils.move_line_backwards(self.__get_column(col)))
+        self.__add_number()
 
     def down(self):
         for col in range(self.size):
             self.__set_column(col, utils.move_line_forwards(self.__get_column(col)))
+        self.__add_number()
 
     def left(self):
         for row in range(self.size):
             self.__set_row(row, utils.move_line_backwards(self.__get_row(row)))
-
+        self.__add_number()
+        
     def right(self):
         for row in range(self.size):
             self.__set_row(row, utils.move_line_forwards(self.__get_row(row)))
+        self.__add_number()
 
     def __check_state(self):
         pass

@@ -11,18 +11,5 @@ class GameUI():
         board_size = 4
         board = Board(seed, board_size)
         print(board.board)
-        while True:
-            key = keyboard.read_key()
-            match key:
-                case
-            if key == "a":
-                print("You pressed 'a'.")
-                break
-            elif key == "a":
-                break
-            elif key == "a":
-                break
-            elif key == "a":
-                break
-            elif key == "a":
-                break
+        board.down()
+        print(board.board)

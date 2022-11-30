@@ -15,10 +15,37 @@ class Utils():
         return(empty_tiles)
 
     def move_line_forwards(line):
-        pass
+        
+        p1=len(line)-2
+        p2=len(line)-1
+        while True:
+            if p1==-1:
+                break
+            elif line[p1]>0 and line[p2]==0:
+                line[p2]=line[p1]
+                line[p1]=0
+                p1-=1
+            elif line[p1]==0:
+                p1-=1
+            elif line[p1]==line[p2]:
+                line[p2]=line[p1]+line[p2]
+                line[p1]=0
+                p1-=1
+                p2-=1
+            elif line[p1]>0 and line[p2]>0:
+                if p2-1==p1:
+                    p1-=1
+                    p2-=1
+                else:
+                    p2-=1
+            else:
+                raise Exception("unnoticed line push case")
+        
+        return line
 
     def move_line_backwards(line):
-        pass
+
+        return line
 
 class BoardState(Enum):
     INPROGRESS = 1
