@@ -17,7 +17,7 @@ class Board():
         self.state = BoardState.INPROGRESS
 
     def up(self):
-        print("↑")
+        #print("↑")
         modified=False
         for col in range(self.size):
             old_line = self.__get_column(col)
@@ -29,7 +29,7 @@ class Board():
             self.__add_number()
 
     def down(self):
-        print("↓")
+        #print("↓")
         modified=False
         for col in range(self.size):
             old_line = self.__get_column(col)
@@ -41,7 +41,7 @@ class Board():
             self.__add_number()
 
     def left(self):
-        print("←")
+        #print("←")
         modified=False
         for row in range(self.size):
             old_line = self.__get_row(row)
@@ -53,7 +53,7 @@ class Board():
             self.__add_number()
 
     def right(self):
-        print("→")
+        #print("→")
         modified=False
         for row in range(self.size):
             old_line = self.__get_row(row)

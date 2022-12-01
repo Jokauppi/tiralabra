@@ -2,6 +2,7 @@
 from ui.quit import Quit
 from ui.seed import SeedUI
 from game.board import Board
+from game.board_utils import Utils as utils
 from ui.menu import Menu
 
 
@@ -15,7 +16,7 @@ class GameUI():
         seed = self.seed_ui.view()
         board_size = 4
         board = Board(seed, board_size)
-        print(board.board)
+        utils.print_board(board.board, board_size)
 
         commands = [
             {
@@ -48,7 +49,7 @@ class GameUI():
         while True:
             try:
                 self.menu.show(commands, cancel=False)()
-                print(board.board)
+                utils.print_board(board.board, board_size, redraw=True)
             except Quit:
                 break
 

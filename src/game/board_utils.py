@@ -83,6 +83,29 @@ class Utils():
         
         return (line, modified)
 
+    def print_board(board, size, redraw=False):
+        if redraw:
+            print((2*size+2)*"\033[F")
+        print("╔"+(size-1)*"════╦"+"════╗")
+        for index in range(size):
+            row = board[index]
+            number_line = "║"
+            for number in row:
+                if number == 0:
+                    number_line += '\33[30m{:4d}\33[0m║'.format(number)
+                elif number > 64:
+                    number_line += '\33[33m{:4d}\33[0m║'.format(number)
+                elif number > 4:
+                    number_line += '\33[31m{:4d}\33[0m║'.format(number)
+                else:
+                    number_line += '{:4d}║'.format(number)
+            print(number_line)
+            if index < size-1:
+                print("╠"+(size-1)*"════╬"+"════╣")
+
+        print("╚"+(size-1)*"════╩"+"════╝")
+
+
 class BoardState(Enum):
     INPROGRESS = 1
     LOST = 2
