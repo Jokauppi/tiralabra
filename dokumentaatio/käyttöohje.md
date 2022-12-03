@@ -9,3 +9,7 @@ Tarvittavat kirjastot voi asentaa komennolla `poetry install`
 ## Ohjelman käynnistäminen
 
 Ohjelman voi käynnistää komennolla `poetry run python3 src/`
+
+## Käyttöliittymä
+
+Käyttöliittymässä voi liikkua valikon ja valikossa lukevien pikanäppäinten avulla.
