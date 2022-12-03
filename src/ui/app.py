@@ -4,6 +4,7 @@ from ui.quit import Quit
 from ui.game import GameUI
 from ui.menu import Menu
 
+
 class App():
     def __init__(self, io):
         self.io = io

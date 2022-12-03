@@ -1,5 +1,6 @@
 from simple_term_menu import TerminalMenu
 
+
 class Menu:
     def __init__(self, io):
         pass
@@ -17,10 +18,12 @@ class Menu:
 
         options_strings = [self.get_option(o) for o in options]
 
-        terminal_menu = TerminalMenu(options_strings,
-                title=title,
-                shortcut_key_highlight_style=("fg_yellow",)
-            )
+        terminal_menu = TerminalMenu(
+            options_strings,
+            title=title,
+            shortcut_key_highlight_style=(
+                "fg_yellow",
+            ))
 
         menu_entry_index = terminal_menu.show()
 

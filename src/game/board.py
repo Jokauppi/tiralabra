@@ -3,12 +3,13 @@ from game.board_utils import Utils as utils
 from game.board_utils import BoardState
 import random
 
+
 class Board():
-    def __init__(self, seed, board_size, initial = None):
+    def __init__(self, seed, board_size, initial=None):
         self.seed = seed
         random.seed(self.seed)
         self.size = board_size
-        if initial == None:
+        if initial is None:
             self.board = np.zeros((self.size, self.size), dtype=int)
             self.__add_number()
             self.__add_number()
@@ -17,8 +18,8 @@ class Board():
         self.state = BoardState.INPROGRESS
 
     def up(self):
-        #print("↑")
-        modified=False
+        # print("↑")
+        modified = False
         for col in range(self.size):
             old_line = self.__get_column(col)
             (new_line, line_modified) = utils.move_line_backwards(old_line)
@@ -29,8 +30,8 @@ class Board():
             self.__add_number()
 
     def down(self):
-        #print("↓")
-        modified=False
+        # print("↓")
+        modified = False
         for col in range(self.size):
             old_line = self.__get_column(col)
             (new_line, line_modified) = utils.move_line_forwards(old_line)
@@ -41,8 +42,8 @@ class Board():
             self.__add_number()
 
     def left(self):
-        #print("←")
-        modified=False
+        # print("←")
+        modified = False
         for row in range(self.size):
             old_line = self.__get_row(row)
             (new_line, line_modified) = utils.move_line_backwards(old_line)
@@ -53,8 +54,8 @@ class Board():
             self.__add_number()
 
     def right(self):
-        #print("→")
-        modified=False
+        # print("→")
+        modified = False
         for row in range(self.size):
             old_line = self.__get_row(row)
             (new_line, line_modified) = utils.move_line_forwards(old_line)
@@ -67,7 +68,8 @@ class Board():
     def __check_state(self):
         pass
 
-    # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing istead of a 2
+    # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing
+    # istead of a 2
     def __add_number(self):
         empty_tiles = utils.empty_tiles(self)
         chosen_tile = empty_tiles[random.randrange(len(empty_tiles))]
