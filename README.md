@@ -12,9 +12,11 @@ Tietorakenteet ja algoritmit harjoitustyö 2022 - 2. periodi.
 
 [Viikko 4](dokumentaatio/viikkoraportit/viikkoraportti-4.md)
 
+[Viikko 5](dokumentaatio/viikkoraportit/viikkoraportti-5.md)
+
 ## Määrittely
 [määrittelydokumentti](dokumentaatio/määrittelydokumentti.md)
 
-## Käyttöohje (WIP)
+## Käyttöohje
 
 [Käyttöohje](dokumentaatio/käyttöohje.md)
