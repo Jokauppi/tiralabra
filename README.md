@@ -19,6 +19,6 @@ Tietorakenteet ja algoritmit harjoitustyö 2022 - 2. periodi.
 ## Määrittely
 [määrittelydokumentti](dokumentaatio/määrittelydokumentti.md)
 
-## Käyttöohje (WIP)
+## Käyttöohje
 
 [Käyttöohje](dokumentaatio/käyttöohje.md)
