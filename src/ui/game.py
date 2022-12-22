@@ -3,8 +3,9 @@ from ui.quit import Quit
 from ui.seed import SeedUI
 from game.board import Board
 from game.board_utils import Utils as utils
-from game.board_utils import Direction
+from game.board_utils import BoardState, Direction
 from ui.menu import Menu
+import numpy as np
 
 
 class GameUI():
@@ -54,7 +55,13 @@ class GameUI():
                     command()
                 else:
                     board.move(command)
-                utils.print_board(board.board, board_size, redraw=True)
+                    utils.print_board(board.board, board_size, redraw=True)
+                    if board.state == BoardState.LOST:
+                        print("GAME LOST!")
+                        self.__quit_game()
+                    elif board.state == BoardState.WON:
+                        print("GAME WON!")
+                        self.__quit_game()
             except Quit:
                 break
 

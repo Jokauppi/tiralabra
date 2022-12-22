@@ -75,6 +75,11 @@ class Utils():
 
         return (line, modified)
 
+    def is_line_movable(line):
+        for index in range(len(line)-1):
+            if line[index] == 0 or line[index] == line[index + 1]: return True
+        return False
+
     def print_board(board, size, redraw=False):
 
         start_line = "╔" + (size - 1) * "════╦" + "════╗\n"

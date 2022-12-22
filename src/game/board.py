@@ -18,7 +18,7 @@ class Board():
             self.board = initial
         self.state = BoardState.INPROGRESS
 
-    def move(self, direction: Direction, add_number=True):
+    def move(self, direction: Direction, add_number=True, check_state=True):
         modified = False
 
         for line in range(self.size):
@@ -51,8 +51,26 @@ class Board():
         if modified and add_number:
             self.__add_number()
 
-    def __check_state(self):
-        pass
+        if check_state:
+            self.check_state()
+
+    def check_state(self):
+        if self.check_win():
+            self.state = BoardState.WON
+        elif self.check_loss():
+            self.state = BoardState.LOST
+
+    def check_win(self):
+        if 2048 in self.board.flatten(): return True
+
+    def check_loss(self):
+        for row in range(self.size):
+            line = self.__get_row(row)
+            if utils.is_line_movable(line): return False
+        for col in range(self.size):
+            line = self.__get_column(col)
+            if utils.is_line_movable(line): return False
+        return True
 
     # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing
     # istead of a 2
