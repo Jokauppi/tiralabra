@@ -6,7 +6,7 @@ import random
 
 
 class Board():
-    def __init__(self, seed: int, board_size: int = 4, initial=None):
+    def __init__(self, seed: int, board_size: int = 4, initial=None, score=0):
         self.seed = seed
         random.seed(self.seed)
         self.size = board_size
@@ -17,7 +17,7 @@ class Board():
         else:
             self.board = initial
         self.state = BoardState.INPROGRESS
-        self.score = 0
+        self.score = score
 
     def move(self, direction: Direction, add_number=True, check_state=True):
         
@@ -84,6 +84,9 @@ class Board():
                 return False
         return True
 
+    def put_number(self, tile, number):
+        self.board[tile[0]][tile[1]] = number
+
     # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing
     # istead of a 2
     def __add_number(self):
@@ -124,4 +127,4 @@ class Board():
         utils.print_board(self)
 
     def __copy__(self):
-        return Board(self.seed, self.board_size, initial=self.board.copy())
+        return Board(self.seed, self.board_size, initial=self.board.copy(), score=self.score)
