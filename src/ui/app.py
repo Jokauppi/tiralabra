@@ -2,6 +2,7 @@ import os
 
 from ui.quit import Quit
 from ui.game import GameUI
+from ui.ai_menu import AIUI
 from ui.menu import Menu
 
 
@@ -10,6 +11,7 @@ class App():
         self.io = io
         self.menu = Menu(self.io)
         self.game_ui = GameUI(self.io)
+        self.ai_ui = AIUI(self.io)
 
     def run(self):
 
@@ -17,6 +19,11 @@ class App():
             {
                 "action": self.game_ui.view,
                 "message": "Start game",
+                "shortcut": "s"
+            },
+            {
+                "action": self.ai_ui.view,
+                "message": "AI menu",
                 "shortcut": "s"
             },
             {
