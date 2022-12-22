@@ -10,6 +10,7 @@ class AIUI():
         self.io = io
         self.menu = Menu(self.io)
         self.ai_visual = AIVisual(self.io)
+        self.ai_benchmark = AIBenchmark(self.io)
 
     def view(self):
         commands = [
@@ -17,6 +18,11 @@ class AIUI():
                 "action": self.ai_visual,
                 "message": "Visual playthrough",
                 "shortcut": "v"
+            },
+            {
+                "action": self.ai_benchmark,
+                "message": "AI benchmarking",
+                "shortcut": "a"
             }
         ]
 

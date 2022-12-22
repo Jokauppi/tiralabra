@@ -105,6 +105,9 @@ class Board():
     def get_size(self):
         return self.size
 
+    def get_max_number(self):
+        return max(self.board.flatten())
+
     def __get_row(self, index):
         return self.board[index, :]
 
