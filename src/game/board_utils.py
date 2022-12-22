@@ -1,19 +1,10 @@
 import numpy as np
 from enum import Enum
-
+from time import sleep
 
 class Utils():
     def __init__(self):
         pass
-
-    def empty_tiles(board):
-        tiles = board.board
-        empty_tiles = []
-        with np.nditer(tiles, flags=['multi_index'], op_flags=['readwrite']) as it:
-            for tile in it:
-                if tile == 0:
-                    empty_tiles.append(it.multi_index)
-        return (empty_tiles)
 
     def move_line_forwards(line):
 
@@ -86,11 +77,9 @@ class Utils():
 
     def print_board(board, size, redraw=False):
 
+        start_line = "╔" + (size - 1) * "════╦" + "════╗\n"
         if redraw:
-            start_line = (2 * size + 1) * "\033[F" + "╔" + (size - 1) * "════╦" + "════╗\n"
-        else:
-            start_line = "╔" + (size - 1) * "════╦" + "════╗\n"
-
+            start_line = (2 * size + 1) * "\033[F" + start_line
         middle_lines = ""
         separator = "╠" + (size - 1) * "════╬" + "════╣\n"
 
@@ -120,3 +109,9 @@ class BoardState(Enum):
     INPROGRESS = 1
     LOST = 2
     WON = 3
+
+class Direction(Enum):
+    UP = 1
+    RIGHT = 2
+    DOWN = 3
+    LEFT = 4

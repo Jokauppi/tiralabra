@@ -3,6 +3,7 @@ from ui.quit import Quit
 from ui.seed import SeedUI
 from game.board import Board
 from game.board_utils import Utils as utils
+from game.board_utils import Direction
 from ui.menu import Menu
 
 
@@ -20,22 +21,22 @@ class GameUI():
 
         commands = [
             {
-                "action": board.up,
+                "action": Direction.UP,
                 "message": "↑",
                 "shortcut": "w"
             },
             {
-                "action": board.down,
+                "action": Direction.DOWN,
                 "message": "↓",
                 "shortcut": "s"
             },
             {
-                "action": board.left,
+                "action": Direction.LEFT,
                 "message": "←",
                 "shortcut": "a"
             },
             {
-                "action": board.right,
+                "action": Direction.RIGHT,
                 "message": "→",
                 "shortcut": "d"
             },
@@ -48,7 +49,11 @@ class GameUI():
 
         while True:
             try:
-                self.menu.show(commands, cancel=False)()
+                command = self.menu.show(commands, cancel=False)
+                if callable(command):
+                    command()
+                else:
+                    board.move(command)
                 utils.print_board(board.board, board_size, redraw=True)
             except Quit:
                 break
