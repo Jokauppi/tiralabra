@@ -6,7 +6,7 @@ import random
 
 
 class Board():
-    def __init__(self, seed: int, board_size: int = 4, initial = None):
+    def __init__(self, seed: int, board_size: int = 4, initial=None):
         self.seed = seed
         random.seed(self.seed)
         self.size = board_size
@@ -43,7 +43,7 @@ class Board():
                     (new_line, line_modified) = utils.move_line_backwards(old_line)
                 else:
                     (new_line, line_modified) = utils.move_line_forwards(old_line)
-                
+
                 if line_modified:
                     self.__set_row(line, new_line)
                     modified = True
@@ -61,15 +61,18 @@ class Board():
             self.state = BoardState.LOST
 
     def check_win(self):
-        if 2048 in self.board.flatten(): return True
+        if 2048 in self.board.flatten():
+            return True
 
     def check_loss(self):
         for row in range(self.size):
             line = self.__get_row(row)
-            if utils.is_line_movable(line): return False
+            if utils.is_line_movable(line):
+                return False
         for col in range(self.size):
             line = self.__get_column(col)
-            if utils.is_line_movable(line): return False
+            if utils.is_line_movable(line):
+                return False
         return True
 
     # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing

@@ -1,6 +1,7 @@
 from enum import Enum
 from game.board import Board
 
+
 class Utils():
     def __init__(self):
         pass
@@ -75,12 +76,13 @@ class Utils():
         return (line, modified)
 
     def is_line_movable(line):
-        for index in range(len(line)-1):
-            if line[index] == 0 or line[index] == line[index + 1]: return True
+        for index in range(len(line) - 1):
+            if line[index] == 0 or line[index] == line[index + 1]:
+                return True
         return False
 
     def print_board(board: Board, redraw=False):
-        
+
         size = board.size
 
         start_line = "╔" + (size - 1) * "════╦" + "════╗\n"
@@ -115,6 +117,7 @@ class BoardState(Enum):
     INPROGRESS = 1
     LOST = 2
     WON = 3
+
 
 class Direction(Enum):
     UP = 1

@@ -14,8 +14,7 @@ class SeedUI():
                 "action": self.rand_seed,
                 "message": "Random seed",
                 "shortcut": "r"
-            }
-            ,
+            },
             {
                 "action": self.ask_seed,
                 "message": "Choose seed",

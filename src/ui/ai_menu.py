@@ -4,6 +4,7 @@ from ui.menu import Menu
 from ui.ai_benchmark import AIBenchmark
 from ui.ai_visual import AIVisual
 
+
 class AIUI():
     def __init__(self, io):
         self.io = io
@@ -21,5 +22,5 @@ class AIUI():
 
         try:
             self.menu.show(commands).view()
-        except:
+        except BaseException:
             pass

@@ -2,6 +2,7 @@
 from game.board import Board
 from ui.menu import Menu
 
+
 class AIBenchmark():
     def __init__(self, io):
         self.io = io
@@ -18,5 +19,5 @@ class AIBenchmark():
 
         try:
             self.menu.show(commands)()
-        except:
+        except BaseException:
             pass

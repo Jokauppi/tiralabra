@@ -23,7 +23,7 @@ class AIVisual():
 
         try:
             self.run_ai(self.menu.show(ai_choices))
-        except:
+        except BaseException:
             pass
 
     def run_ai(ai):
