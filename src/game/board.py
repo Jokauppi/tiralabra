@@ -6,7 +6,7 @@ import random
 
 
 class Board():
-    def __init__(self, seed: int, board_size: int, initial = None):
+    def __init__(self, seed: int, board_size: int = 4, initial = None):
         self.seed = seed
         random.seed(self.seed)
         self.size = board_size
@@ -103,7 +103,7 @@ class Board():
         self.board[:, index] = values
 
     def __str__(self) -> str:
-        utils.print_board(self.board, self.size)
+        utils.print_board(self.board)
 
     def __copy__(self):
         return Board(self.seed, self.board_size, initial=self.board.copy())

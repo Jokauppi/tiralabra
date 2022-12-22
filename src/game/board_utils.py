@@ -1,6 +1,5 @@
-import numpy as np
 from enum import Enum
-from time import sleep
+from game.board import Board
 
 class Utils():
     def __init__(self):
@@ -80,7 +79,9 @@ class Utils():
             if line[index] == 0 or line[index] == line[index + 1]: return True
         return False
 
-    def print_board(board, size, redraw=False):
+    def print_board(board: Board, redraw=False):
+        
+        size = board.size
 
         start_line = "╔" + (size - 1) * "════╦" + "════╗\n"
         if redraw:

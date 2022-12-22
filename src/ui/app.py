@@ -24,7 +24,7 @@ class App():
             {
                 "action": self.ai_ui.view,
                 "message": "AI menu",
-                "shortcut": "s"
+                "shortcut": "a"
             },
             {
                 "action": self.quit_program,
