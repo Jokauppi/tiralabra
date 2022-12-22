@@ -1,6 +1,4 @@
 from enum import Enum
-from game.board import Board
-
 
 class Utils():
     def __init__(self):
@@ -12,6 +10,7 @@ class Utils():
         p2 = len(line) - 1
 
         modified = False
+        score = 0
 
         while True:
             if p1 == -1:
@@ -26,6 +25,7 @@ class Utils():
             elif line[p1] == line[p2]:
                 line[p2] = line[p1] + line[p2]
                 line[p1] = 0
+                score += line[p2]
                 p1 -= 1
                 p2 -= 1
                 modified = True
@@ -38,7 +38,7 @@ class Utils():
             else:
                 raise Exception("unnoticed line push case")
 
-        return (line, modified)
+        return (line, modified, score)
 
     def move_line_backwards(line):
 
@@ -47,6 +47,7 @@ class Utils():
         p2 = 1
 
         modified = False
+        score = 0
 
         while True:
             if p2 == max:
@@ -61,6 +62,7 @@ class Utils():
             elif line[p1] == line[p2]:
                 line[p1] = line[p1] + line[p2]
                 line[p2] = 0
+                score += line[p1]
                 p1 += 1
                 p2 += 1
                 modified = True
@@ -73,7 +75,7 @@ class Utils():
             else:
                 raise Exception("unnoticed line push case")
 
-        return (line, modified)
+        return (line, modified, score)
 
     def is_line_movable(line):
         for index in range(len(line) - 1):
@@ -81,13 +83,17 @@ class Utils():
                 return True
         return False
 
-    def print_board(board: Board, redraw=False):
+    def print_board(board_object, redraw=False, bottom_buffer=0, score=True):
 
-        size = board.size
+        size = board_object.size
+        board = board_object.board
+
+        if score:
+            bottom_buffer += 1
 
         start_line = "╔" + (size - 1) * "════╦" + "════╗\n"
         if redraw:
-            start_line = (2 * size + 1) * "\033[F" + start_line
+            start_line = (2 * size + 1 + bottom_buffer) * "\033[F" + start_line
         middle_lines = ""
         separator = "╠" + (size - 1) * "════╬" + "════╣\n"
 
@@ -109,6 +115,9 @@ class Utils():
                 middle_lines += separator
 
         end_line = "╚" + (size - 1) * "════╩" + "════╝"
+
+        if score:
+            end_line += "\nScore: " + str(board_object.score)
 
         print(start_line + middle_lines + end_line)
 

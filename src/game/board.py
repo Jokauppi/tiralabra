@@ -17,9 +17,12 @@ class Board():
         else:
             self.board = initial
         self.state = BoardState.INPROGRESS
+        self.score = 0
 
     def move(self, direction: Direction, add_number=True, check_state=True):
+        
         modified = False
+        move_score = 0
 
         for line in range(self.size):
 
@@ -28,31 +31,37 @@ class Board():
                 old_line = self.__get_column(line)
 
                 if direction == Direction.UP:
-                    (new_line, line_modified) = utils.move_line_backwards(old_line)
+                    (new_line, line_modified, line_score) = utils.move_line_backwards(old_line)
                 else:
-                    (new_line, line_modified) = utils.move_line_forwards(old_line)
+                    (new_line, line_modified, line_score) = utils.move_line_forwards(old_line)
 
                 if line_modified:
                     self.__set_column(line, new_line)
                     modified = True
 
+                move_score += line_score
+
             else:
                 old_line = self.__get_row(line)
 
                 if direction == Direction.LEFT:
-                    (new_line, line_modified) = utils.move_line_backwards(old_line)
+                    (new_line, line_modified, line_score) = utils.move_line_backwards(old_line)
                 else:
-                    (new_line, line_modified) = utils.move_line_forwards(old_line)
+                    (new_line, line_modified, line_score) = utils.move_line_forwards(old_line)
 
                 if line_modified:
                     self.__set_row(line, new_line)
                     modified = True
+
+                move_score += line_score
 
         if modified and add_number:
             self.__add_number()
 
         if check_state:
             self.check_state()
+
+        self.score += move_score
 
     def check_state(self):
         if self.check_win():
@@ -93,6 +102,9 @@ class Board():
                     empty_tiles.append(it.multi_index)
         return (empty_tiles)
 
+    def get_size(self):
+        return self.size
+
     def __get_row(self, index):
         return self.board[index, :]
 
@@ -106,7 +118,7 @@ class Board():
         self.board[:, index] = values
 
     def __str__(self) -> str:
-        utils.print_board(self.board)
+        utils.print_board(self)
 
     def __copy__(self):
         return Board(self.seed, self.board_size, initial=self.board.copy())

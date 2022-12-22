@@ -1,6 +1,9 @@
 
+from time import sleep
+import traceback
 from game.board import Board
 from game.board_utils import BoardState
+from game.board_utils import Utils as utils
 from ui.menu import Menu
 from ai.random_ai import RandomAI
 import random
@@ -22,19 +25,22 @@ class AIVisual():
         ]
 
         try:
-            self.run_ai(self.menu.show(ai_choices))
-        except BaseException:
-            pass
+            ai = self.menu.show(ai_choices, cancel=False)
+            self.run_ai(ai)
+        except BaseException as e:
+            print(traceback.format_exc())
 
-    def run_ai(ai):
+    def run_ai(self, ai):
         seed = random.getrandbits(32)
-        print("Seed: " + seed)
+        print("Seed: " + str(seed))
         board = Board(seed)
-        while board.state != BoardState.INPROGRESS:
-            board.move(ai.get_move(board))
+        utils.print_board(board)
+        while board.state == BoardState.INPROGRESS:
+            move = ai.get_move(board)
+            board.move(move)
+            utils.print_board(board, redraw=True)
+            sleep(0.01)
         if board.state == BoardState.WON:
-            print(board)
             print("Board won!")
         else:
-            print(board)
             print("Board lost!")

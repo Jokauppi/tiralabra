@@ -22,5 +22,5 @@ class AIUI():
 
         try:
             self.menu.show(commands).view()
-        except BaseException:
+        except BaseException as e:
             pass
