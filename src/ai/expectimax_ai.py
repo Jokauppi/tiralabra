@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import copy
 import random
 import sys
 from game.board_utils import Direction, BoardState
@@ -24,7 +24,7 @@ class ExpectimaxAI ():
         best_move = None
 
         for move in self.moves:
-            board_child = deepcopy(board)
+            board_child = copy(board)
             board_child.move(move, add_number=False, check_state=False)
             
             if move != board_child.immovable_direction:
@@ -47,7 +47,7 @@ class ExpectimaxAI ():
             a = -sys.maxsize
 
             for move in self.moves:
-                board_child = deepcopy(board)
+                board_child = copy(board)
                 board_child.move(move, add_number=False, check_state=False)
 
                 if move != board_child.immovable_direction:
@@ -60,7 +60,7 @@ class ExpectimaxAI ():
             free_tiles_amount = len(possible_numbers) / 2
 
             for new_tile in possible_numbers:
-                board_child = deepcopy(board)
+                board_child = copy(board)
                 board_child.put_number(new_tile[0], new_tile[1])
                 board_child.check_state()
                 a = a + (1.0 / free_tiles_amount * \

@@ -146,8 +146,8 @@ class Board():
     def __str__(self) -> str:
         utils.print_board(self)
 
-    # def __copy__(self):
-    #    new_board = Board(self.seed, self.board_size, initial=self.board.copy(), score=self.score)
-    #    new_board.last_move = self.last_move
-    #    new_board.immovable_direction = self.immovable_direction
-    #    return new_board
+    def __copy__(self):
+       new_board = Board(self.seed, self.size, initial=self.board.copy(), score=self.score)
+       new_board.last_move = self.last_move
+       new_board.immovable_direction = self.immovable_direction
+       return new_board
