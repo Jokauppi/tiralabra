@@ -36,9 +36,24 @@ class AIBenchmark():
         try:
             ai = self.menu.show(ai_choices, cancel=False)
             games = input("Amount of games:")
-            self.run_ai(ai, games)
         except BaseException as e:
             print(traceback.format_exc())
+
+        if hasattr(ai, "set_heuristics"):
+            try:
+                heuristics = self.menu.show(ai.get_heuristics(), cancel=False)
+                ai.set_heuristics(heuristics)
+            except BaseException as e:
+                print(traceback.format_exc())
+
+        if hasattr(ai, "set_depth"):
+            depth = input("Set algorithm search depth [empty = 3]: ")
+            if depth == "":
+                ai.set_depth(3)
+            else:
+                ai.set_depth(int(depth))
+
+        self.run_ai(ai, games)
 
     def run_ai(self, ai, game_amount):
 

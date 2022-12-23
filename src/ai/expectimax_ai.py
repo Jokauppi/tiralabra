@@ -1,21 +1,24 @@
-from copy import copy
 import sys
+from copy import copy
 from game.board_utils import Direction, BoardState
 from game.board import Board
+import numpy as np
 
 
 class ExpectimaxAI ():
-    def __init__(self, heuristic_func="Score"):
+    def __init__(self):
 
-        self.heuristic_func = self.__heuristic
-        if heuristic_func != "Score":
-            self.heuristic_func = heuristic_func,
+        self.heuristic_func = self.score
+        self.depth = 3
 
         self.moves = [
             Direction.UP,
             Direction.RIGHT,
             Direction.DOWN,
             Direction.LEFT]
+        
+        self.snake_weights = np.array([[4,5,12,13],[3,6,11,14],[2,7,10,15],[1,8,9,16]])
+        self.edge_weights = np.array([[100,10,10,100],[10,1,1,10],[10,1,1,10],[100,10,10,100]])
 
     def get_move(self, board: Board):
 
@@ -28,7 +31,7 @@ class ExpectimaxAI ():
             
             if move != board_child.immovable_direction:
                 board_child.check_state()
-                child_value = self.__expectimax(board_child, 3)
+                child_value = self.__expectimax(board_child, self.depth)
             
                 if child_value > best_value:
                     best_value = child_value
@@ -67,9 +70,51 @@ class ExpectimaxAI ():
 
         return a
 
-    def __heuristic(self, board: Board):
+    def set_depth(self, depth):
+        self.depth = depth
+
+    def get_heuristics(self):
+        return [
+            {
+            "action": self.score,
+            "message": "Score based",
+            "shortcut": "s"
+            },
+            {
+            "action": self.snake,
+            "message": "Weighed in snake pattern",
+            "shortcut": "z"
+            },
+            {
+            "action": self.edge,
+            "message": "Weighed on board edges",
+            "shortcut": "e"
+            }
+        ]
+        
+
+    def set_heuristics(self, heuristics):
+        self.heuristic_func = heuristics
+
+    def score(self, board: Board):
         if board.state == BoardState.LOST:
             return 0
         if board.state == BoardState.WON:
             return board.score * 2
         return board.score
+
+    def snake(self, board: Board):
+        if board.state == BoardState.LOST:
+            return 0
+        return np.sum(np.multiply(board.board, self.snake_weights))
+
+    def edge(self, board: Board):
+        if board.state == BoardState.LOST:
+            return 0
+        return np.sum(np.multiply(board.board, self.edge_weights))
+
+    def snake_and_empty_space(self, board: Board):
+        pass
+
+    def edge_and_empty_space(self, board: Board):
+        pass
