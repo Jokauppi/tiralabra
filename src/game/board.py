@@ -6,9 +6,10 @@ import random
 
 
 class Board():
-    def __init__(self, seed: int, board_size: int = 4, initial=None, score=0):
+    def __init__(self, seed: int, board_size: int = 4, initial=None, score=0, set_seed=True):
         self.seed = seed
-        random.seed(self.seed)
+        if set_seed:
+            random.seed(self.seed)
         self.size = board_size
         if initial is None:
             self.board = np.zeros((self.size, self.size), dtype=int)
@@ -147,7 +148,7 @@ class Board():
         utils.print_board(self)
 
     def __copy__(self):
-       new_board = Board(self.seed, self.size, initial=self.board.copy(), score=self.score)
+       new_board = Board(self.seed, self.size, initial=self.board.copy(), score=self.score, set_seed=False)
        new_board.last_move = self.last_move
        new_board.immovable_direction = self.immovable_direction
        return new_board

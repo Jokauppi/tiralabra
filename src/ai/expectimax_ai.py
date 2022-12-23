@@ -1,5 +1,4 @@
 from copy import copy
-import random
 import sys
 from game.board_utils import Direction, BoardState
 from game.board import Board
@@ -71,6 +70,4 @@ class ExpectimaxAI ():
     def __heuristic(self, board: Board):
         if board.state == BoardState.LOST:
             return 0
-        elif BoardState == BoardState.WON:
-            return board.score * 2
         return board.score
