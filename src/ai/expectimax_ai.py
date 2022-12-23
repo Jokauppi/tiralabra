@@ -41,7 +41,7 @@ class ExpectimaxAI ():
 
     def __expectimax(self, board: Board, depth, players_turn=False):
 
-        if depth == 0 or board.state != BoardState.INPROGRESS:
+        if depth == 0 or board.state == BoardState.LOST:
             return self.heuristic_func(board)
 
         if players_turn:
@@ -78,12 +78,12 @@ class ExpectimaxAI ():
             {
             "action": self.snake,
             "message": "Weighed in snake pattern",
-            "shortcut": "z"
+            "shortcut": "s"
             },
             {
             "action": self.score,
             "message": "Score based",
-            "shortcut": "s"
+            "shortcut": "c"
             },
             {
             "action": self.edge,

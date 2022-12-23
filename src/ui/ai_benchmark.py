@@ -10,6 +10,7 @@ from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
 import time
 from datetime import timedelta
+from collections import Counter
 
 
 class AIBenchmark():
@@ -124,4 +125,7 @@ Median highest number: {med_number}
             med_number=max_numbers[len(max_numbers) // 2]
         ))
 
-        
+        max_number_occurrences = Counter(max_numbers)
+        print("=========\nHIGHEST NUMBERS OCCURRENCES")
+        for number in list(max_number_occurrences):
+            print((str(number) + ":").ljust(7) + max_number_occurrences[number] * "*")
