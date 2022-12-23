@@ -25,12 +25,15 @@ class ExpectimaxAI ():
 
         for move in self.moves:
             board_child = deepcopy(board)
-            board_child.move(move, add_number=False, check_state=True)
-            child_value = self.__expectimax(board_child, 3)
-
-            if child_value > best_value:
-                best_value = child_value
-                best_move = move
+            board_child.move(move, add_number=False, check_state=False)
+            
+            if move != board_child.immovable_direction:
+                board_child.check_state()
+                child_value = self.__expectimax(board_child, 4)
+            
+                if child_value > best_value:
+                    best_value = child_value
+                    best_move = move
 
         return best_move
 

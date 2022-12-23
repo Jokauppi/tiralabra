@@ -8,6 +8,7 @@ from ui.menu import Menu
 from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
 import random
+from pprint import pprint
 
 
 class AIVisual():
@@ -67,6 +68,7 @@ class AIVisual():
         board = Board(seed)
         utils.print_board(board)
         while board.state == BoardState.INPROGRESS:
+            #pprint(vars(board))
             move = ai.get_move(board)
             board.move(move)
             utils.print_board(board, redraw=True)
