@@ -78,7 +78,7 @@ class AIVisual():
     def run_ai(self, ai, speed):
         seed = random.getrandbits(32)
         print("Seed: " + str(seed))
-        board = Board(seed)
+        board = Board(seed, board_size=4)
         utils.print_board(board)
         while board.state == BoardState.INPROGRESS:
             move = ai.get_move(board)
