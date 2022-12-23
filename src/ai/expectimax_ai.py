@@ -76,14 +76,14 @@ class ExpectimaxAI ():
     def get_heuristics(self):
         return [
             {
-            "action": self.score,
-            "message": "Score based",
-            "shortcut": "s"
-            },
-            {
             "action": self.snake,
             "message": "Weighed in snake pattern",
             "shortcut": "z"
+            },
+            {
+            "action": self.score,
+            "message": "Score based",
+            "shortcut": "s"
             },
             {
             "action": self.edge,

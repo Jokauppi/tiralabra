@@ -17,14 +17,14 @@ class App():
 
         commands = [
             {
-                "action": self.game_ui.view,
-                "message": "Start game",
-                "shortcut": "s"
+                "action": self.ai_ui.view,
+                "message": "AI play",
+                "shortcut": "a"
             },
             {
-                "action": self.ai_ui.view,
-                "message": "AI menu",
-                "shortcut": "a"
+                "action": self.game_ui.view,
+                "message": "Manual play",
+                "shortcut": "s"
             },
             {
                 "action": self.quit_program,
