@@ -29,7 +29,7 @@ class ExpectimaxAI ():
             
             if move != board_child.immovable_direction:
                 board_child.check_state()
-                child_value = self.__expectimax(board_child, 4)
+                child_value = self.__expectimax(board_child, 3)
             
                 if child_value > best_value:
                     best_value = child_value

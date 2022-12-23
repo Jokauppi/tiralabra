@@ -7,6 +7,7 @@ from game.board_utils import BoardState
 from game.board import Board
 from ui.menu import Menu
 from ai.random_ai import RandomAI
+from ai.expectimax_ai import ExpectimaxAI
 import time
 
 
@@ -15,6 +16,8 @@ class AIBenchmark():
         self.io = io
         self.menu = Menu(self.io)
         self.random_ai = RandomAI()
+        self.expectimax_ai = ExpectimaxAI()
+
 
     def view(self):
         ai_choices = [
@@ -22,6 +25,11 @@ class AIBenchmark():
                 "action": self.random_ai,
                 "message": "Random moves",
                 "shortcut": "r"
+            },
+            {
+                "action": self.expectimax_ai,
+                "message": "Expectimax algorithm",
+                "shortcut": "e"
             }
         ]
 
