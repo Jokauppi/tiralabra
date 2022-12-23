@@ -33,8 +33,8 @@ class AIBenchmark():
             print(traceback.format_exc())
 
     def run_ai(self, ai, game_amount):
-        
-        game_amount=int(game_amount)
+
+        game_amount = int(game_amount)
         clock = time.pthread_getcpuclockid(threading.get_ident())
 
         scores = []
@@ -50,7 +50,7 @@ class AIBenchmark():
                 move = ai.get_move(board)
                 move_end = time.clock_gettime_ns(clock)
                 board.move(move)
-                times.append(move_end-move_start)
+                times.append(move_end - move_start)
             if board.state == BoardState.WON:
                 wins += 1
             scores.append(board.score)
@@ -70,12 +70,12 @@ Avg time per move: {move_time} μs
 Max highest number: {max_number}
 Median highest number: {med_number}
         """.format(
-                wins=wins,
-                played=game_amount,
-                win_percent=wins/game_amount,
-                max_score=max(scores),
-                avg_score=sum(scores)/len(scores),
-                move_time="{:.2f}".format((sum(times)/len(times))/1000),
-                max_number=max(numbers),
-                med_number=numbers[len(numbers)//2]
-            ))
+            wins=wins,
+            played=game_amount,
+            win_percent=wins / game_amount,
+            max_score=max(scores),
+            avg_score=sum(scores) / len(scores),
+            move_time="{:.2f}".format((sum(times) / len(times)) / 1000),
+            max_number=max(numbers),
+            med_number=numbers[len(numbers) // 2]
+        ))

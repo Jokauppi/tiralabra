@@ -6,6 +6,7 @@ from game.board_utils import BoardState
 from game.board_utils import Utils as utils
 from ui.menu import Menu
 from ai.random_ai import RandomAI
+from ai.expectimax_ai import ExpectimaxAI
 import random
 
 
@@ -14,6 +15,7 @@ class AIVisual():
         self.io = io
         self.menu = Menu(self.io)
         self.random_ai = RandomAI()
+        self.expectimax_ai = ExpectimaxAI()
 
     def view(self):
         ai_choices = [
@@ -21,6 +23,11 @@ class AIVisual():
                 "action": self.random_ai,
                 "message": "Random moves",
                 "shortcut": "r"
+            },
+            {
+                "action": self.expectimax_ai,
+                "message": "Expectimax algorithm",
+                "shortcut": "e"
             }
         ]
 
@@ -49,10 +56,10 @@ class AIVisual():
 
         try:
             speed = self.menu.show(speeds, cancel=False)
+            self.run_ai(ai, speed)
         except BaseException as e:
             print(traceback.format_exc())
-
-        self.run_ai(ai, speed)
+        
 
     def run_ai(self, ai, speed):
         seed = random.getrandbits(32)

@@ -18,9 +18,11 @@ class Board():
             self.board = initial
         self.state = BoardState.INPROGRESS
         self.score = score
+        self.immovable_direction = None
+        self.last_move = None
 
     def move(self, direction: Direction, add_number=True, check_state=True):
-        
+
         modified = False
         move_score = 0
 
@@ -31,9 +33,11 @@ class Board():
                 old_line = self.__get_column(line)
 
                 if direction == Direction.UP:
-                    (new_line, line_modified, line_score) = utils.move_line_backwards(old_line)
+                    (new_line, line_modified,
+                     line_score) = utils.move_line_backwards(old_line)
                 else:
-                    (new_line, line_modified, line_score) = utils.move_line_forwards(old_line)
+                    (new_line, line_modified,
+                     line_score) = utils.move_line_forwards(old_line)
 
                 if line_modified:
                     self.__set_column(line, new_line)
@@ -45,9 +49,11 @@ class Board():
                 old_line = self.__get_row(line)
 
                 if direction == Direction.LEFT:
-                    (new_line, line_modified, line_score) = utils.move_line_backwards(old_line)
+                    (new_line, line_modified,
+                     line_score) = utils.move_line_backwards(old_line)
                 else:
-                    (new_line, line_modified, line_score) = utils.move_line_forwards(old_line)
+                    (new_line, line_modified,
+                     line_score) = utils.move_line_forwards(old_line)
 
                 if line_modified:
                     self.__set_row(line, new_line)
@@ -55,12 +61,18 @@ class Board():
 
                 move_score += line_score
 
-        if modified and add_number:
-            self.__add_number()
+        if modified:
+            if add_number:
+                self.__add_number()
+
+            self.immovable_direction = None
+        else:
+            self.immovable_direction = direction
 
         if check_state:
             self.check_state()
 
+        self.last_move = direction
         self.score += move_score
 
     def check_state(self):
@@ -87,16 +99,6 @@ class Board():
     def put_number(self, tile, number):
         self.board[tile[0]][tile[1]] = number
 
-    # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing
-    # istead of a 2
-    def __add_number(self):
-        empty_tiles = self.empty_tiles()
-        chosen_tile = empty_tiles[random.randrange(len(empty_tiles))]
-        new_number = 2
-        if random.randrange(10) == 0:
-            new_number = 4
-        self.board[chosen_tile[0]][chosen_tile[1]] = new_number
-
     def empty_tiles(self):
         empty_tiles = []
         with np.nditer(self.board, flags=['multi_index'], op_flags=['readwrite']) as it:
@@ -105,8 +107,26 @@ class Board():
                     empty_tiles.append(it.multi_index)
         return (empty_tiles)
 
+    def possible_new_numbers(self):
+        empty_tiles = self.empty_tiles()
+        moves = []
+        for tile in empty_tiles:
+            moves.append((tile, 2, 0.9))
+            moves.append((tile, 4, 0.1))
+        return moves
+
     def get_size(self):
         return self.size
+    # Add a 2 or 4 on an empty tile, with 4 having a 10% chance of appearing
+    # istead of a 2
+
+    def __add_number(self):
+        empty_tiles = self.empty_tiles()
+        chosen_tile = empty_tiles[random.randrange(len(empty_tiles))]
+        new_number = 2
+        if random.randrange(10) == 0:
+            new_number = 4
+        self.board[chosen_tile[0]][chosen_tile[1]] = new_number
 
     def get_max_number(self):
         return max(self.board.flatten())
@@ -126,5 +146,8 @@ class Board():
     def __str__(self) -> str:
         utils.print_board(self)
 
-    def __copy__(self):
-        return Board(self.seed, self.board_size, initial=self.board.copy(), score=self.score)
+    # def __copy__(self):
+    #    new_board = Board(self.seed, self.board_size, initial=self.board.copy(), score=self.score)
+    #    new_board.last_move = self.last_move
+    #    new_board.immovable_direction = self.immovable_direction
+    #    return new_board
