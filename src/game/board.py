@@ -65,7 +65,6 @@ class Board():
         if modified:
             if add_number:
                 self.__add_number()
-
             self.immovable_direction = None
         else:
             self.immovable_direction = direction
@@ -77,25 +76,26 @@ class Board():
         self.score += move_score
 
     def check_state(self):
-        if self.check_win():
-            self.state = BoardState.WON
-        elif self.check_loss():
-            self.state = BoardState.LOST
+        self.check_win()
+        self.check_loss()
+
+    def set_state(self, state: BoardState):
+        self.state = state
 
     def check_win(self):
-        if 2048 in self.board.flatten():
-            return True
+        if np.count_nonzero(self.board == 2048):
+            self.state = BoardState.WON
 
     def check_loss(self):
         for row in range(self.size):
             line = self.__get_row(row)
             if utils.is_line_movable(line):
-                return False
+                return
         for col in range(self.size):
             line = self.__get_column(col)
             if utils.is_line_movable(line):
-                return False
-        return True
+                return
+        self.state = BoardState.LOST
 
     def put_number(self, tile, number):
         self.board[tile[0]][tile[1]] = number

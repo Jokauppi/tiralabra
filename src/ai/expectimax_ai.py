@@ -50,7 +50,7 @@ class ExpectimaxAI ():
                 board_child.move(move, add_number=False, check_state=False)
 
                 if move != board_child.immovable_direction:
-                    board_child.check_state
+                    board_child.check_win()
                     a = max(a, self.__expectimax(board_child, depth - 1))
         else:
 
@@ -61,7 +61,7 @@ class ExpectimaxAI ():
             for new_tile in possible_numbers:
                 board_child = copy(board)
                 board_child.put_number(new_tile[0], new_tile[1])
-                board_child.check_state()
+                board_child.check_loss()
                 a = a + (1.0 / free_tiles_amount * \
                          new_tile[2] * self.__expectimax(board_child, depth - 1, players_turn=True))
 
@@ -70,4 +70,6 @@ class ExpectimaxAI ():
     def __heuristic(self, board: Board):
         if board.state == BoardState.LOST:
             return 0
+        if board.state == BoardState.WON:
+            return board.score * 2
         return board.score

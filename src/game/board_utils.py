@@ -13,10 +13,8 @@ class Utils():
         modified = False
         score = 0
 
-        while True:
-            if p1 == -1:
-                break
-            elif line[p1] > 0 and line[p2] == 0:
+        while p1 >= 0:
+            if line[p1] > 0 and line[p2] == 0:
                 line[p2] = line[p1]
                 line[p1] = 0
                 p1 -= 1
@@ -24,7 +22,7 @@ class Utils():
             elif line[p1] == 0:
                 p1 -= 1
             elif line[p1] == line[p2]:
-                line[p2] = line[p1] + line[p2]
+                line[p2] *= 2
                 line[p1] = 0
                 score += line[p2]
                 p1 -= 1
@@ -50,10 +48,8 @@ class Utils():
         modified = False
         score = 0
 
-        while True:
-            if p2 == max:
-                break
-            elif line[p2] > 0 and line[p1] == 0:
+        while p2 < max:
+            if line[p2] > 0 and line[p1] == 0:
                 line[p1] = line[p2]
                 line[p2] = 0
                 p2 += 1
@@ -61,7 +57,7 @@ class Utils():
             elif line[p2] == 0:
                 p2 += 1
             elif line[p1] == line[p2]:
-                line[p1] = line[p1] + line[p2]
+                line[p1] *= 2
                 line[p2] = 0
                 score += line[p1]
                 p1 += 1

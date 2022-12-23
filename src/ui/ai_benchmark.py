@@ -61,6 +61,9 @@ class AIBenchmark():
                 times.append(move_end - move_start)
             if board.state == BoardState.WON:
                 wins += 1
+                print("Game" + str(game) + ": WON")
+            else:
+                print("Game" + str(game) + ": LOST")
             scores.append(board.score)
             numbers.append(board.get_max_number())
 
