@@ -1,0 +1,20 @@
+name: Build
+on: [push]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install deps
+        run: poetry install
+      - name: Tests
+        run: poetry run pytest
+      - name: Coverage
+        run: poetry run coverage run --branch -m pytest
+        run: poetry run coverage xml 
