@@ -17,4 +17,5 @@ jobs:
         run: poetry run pytest
       - name: Coverage
         run: poetry run coverage run --branch -m pytest
+      - name: Coverage report
         run: poetry run coverage xml 
