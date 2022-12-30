@@ -1,0 +1,26 @@
+name: Build
+on: [push]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.9
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install deps
+        run: poetry install
+      - name: Tests
+        run: poetry run pytest -v
+      - name: Coverage
+        run: poetry run coverage run --branch --source src/game,src/ai -m pytest
+      - name: Coverage report
+        run: poetry run coverage xml
+      - uses: codecov/codecov-action@v3
+        with:
+          name: codecov-2048
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: false

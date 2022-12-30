@@ -1,7 +1,6 @@
-from typing import Optional
 import numpy as np
-from game.board_utils import Utils as utils
-from game.board_utils import BoardState, Direction
+from src.game.board_utils import Utils as utils
+from src.game.board_utils import BoardState, Direction
 import random
 
 
@@ -35,10 +34,10 @@ class Board():
 
                 if direction == Direction.UP:
                     (new_line, line_modified,
-                     line_score) = utils.move_line_backwards(old_line)
+                     line_score) = utils.pull_line(old_line)
                 else:
                     (new_line, line_modified,
-                     line_score) = utils.move_line_forwards(old_line)
+                     line_score) = utils.push_line(old_line)
 
                 if line_modified:
                     self.__set_column(line, new_line)
@@ -51,10 +50,10 @@ class Board():
 
                 if direction == Direction.LEFT:
                     (new_line, line_modified,
-                     line_score) = utils.move_line_backwards(old_line)
+                     line_score) = utils.pull_line(old_line)
                 else:
                     (new_line, line_modified,
-                     line_score) = utils.move_line_forwards(old_line)
+                     line_score) = utils.push_line(old_line)
 
                 if line_modified:
                     self.__set_row(line, new_line)
@@ -145,7 +144,7 @@ class Board():
         self.board[:, index] = values
 
     def __str__(self) -> str:
-        utils.print_board(self)
+        print(utils.board_to_string(self))
 
     def __copy__(self):
        new_board = Board(self.seed, self.size, initial=self.board.copy(), score=self.score, set_seed=False)

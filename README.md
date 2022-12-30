@@ -1,5 +1,7 @@
 # Tiralabra: 2048 -teko-äly
 
+[![Build](https://github.com/Jokauppi/tiralabra/actions/workflows/build.yml/badge.svg)](https://github.com/Jokauppi/tiralabra/actions/workflows/build.yml)
+
 Tietorakenteet ja algoritmit harjoitustyö 2022 - 2. periodi.
 
 ## Viikkoraportit
