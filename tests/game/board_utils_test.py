@@ -264,3 +264,24 @@ class TestBoardUtilsLinePull:
         initial = np.array([0,1024,1024,0])
         (_, _, score) = utils.pull_line(initial)
         assert score == 2048
+
+class TestIsLineMovable:
+    def test_line_movability_one_tile(self):
+        line = np.array([16,0,0,0])
+        assert utils.is_line_movable(line)
+
+    def test_line_movability_two_tiles(self):
+        line = np.array([512,8,0,0])
+        assert utils.is_line_movable(line)
+
+    def test_line_movability_empty_in_between(self):
+        line = np.array([8,0,256,2])
+        assert utils.is_line_movable(line)
+
+    def test_line_movability_line_full_combinable(self):
+        line = np.array([8,8,2,4])
+        assert utils.is_line_movable(line)
+
+    def test_line_movability_line_full_not_combinable(self):
+        line = np.array([8,16,2,128])
+        assert not utils.is_line_movable(line)
