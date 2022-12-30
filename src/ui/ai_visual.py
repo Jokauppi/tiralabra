@@ -79,11 +79,11 @@ class AIVisual():
         seed = random.getrandbits(32)
         print("Seed: " + str(seed))
         board = Board(seed, board_size=4)
-        utils.print_board(board)
+        print(utils.board_to_string(board))
         while board.state == BoardState.INPROGRESS:
             move = ai.get_move(board)
             board.move(move)
-            utils.print_board(board, redraw=True)
+            print(utils.board_to_string(board, redraw=True))
             if speed > 0:
                 sleep(speed)
         if board.state == BoardState.LOST:
@@ -92,9 +92,9 @@ class AIVisual():
             print("Board won!")
             # Continue after win
             print("Game continued after win:")
-            utils.print_board(board)
+            print(utils.board_to_string(board))
             while board.state != BoardState.LOST:
                 move = ai.get_move(board)
                 board.move(move)
-                utils.print_board(board, redraw=True)
+                print(utils.board_to_string(board, redraw=True))
         

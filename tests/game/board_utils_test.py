@@ -1,5 +1,6 @@
 import numpy as np
 from src.game.board_utils import Utils as utils
+from src.game.board import Board
 
 class TestBoardUtilsLinePush:
 
@@ -285,3 +286,8 @@ class TestIsLineMovable:
     def test_line_movability_line_full_not_combinable(self):
         line = np.array([8,16,2,128])
         assert not utils.is_line_movable(line)
+
+class TestBoardToString:
+    def test_to_string_with_score(self):
+        board = Board(1, initial=np.array([[2,0,0,0],[0,64,0,0],[0,256,0,0],[0,0,2048,0]]), score=40000)
+        assert True

@@ -17,7 +17,7 @@ class GameUI():
     def view(self):
         seed = self.seed_ui.view()
         board = Board(seed)
-        utils.print_board(board)
+        print(utils.board_to_string(board))
 
         commands = [
             {
@@ -54,7 +54,7 @@ class GameUI():
                     command()
                 else:
                     board.move(command)
-                    utils.print_board(board, redraw=True)
+                    print(utils.board_to_string(board, redraw=True))
                     if board.state == BoardState.LOST:
                         print("GAME LOST!")
                         self.__quit_game()

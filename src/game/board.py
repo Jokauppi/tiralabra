@@ -1,6 +1,6 @@
 import numpy as np
-from game.board_utils import Utils as utils
-from game.board_utils import BoardState, Direction
+from src.game.board_utils import Utils as utils
+from src.game.board_utils import BoardState, Direction
 import random
 
 
@@ -144,7 +144,7 @@ class Board():
         self.board[:, index] = values
 
     def __str__(self) -> str:
-        utils.print_board(self)
+        print(utils.board_to_string(self))
 
     def __copy__(self):
        new_board = Board(self.seed, self.size, initial=self.board.copy(), score=self.score, set_seed=False)

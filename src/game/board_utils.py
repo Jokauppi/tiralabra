@@ -80,7 +80,7 @@ class Utils():
                 return True
         return False
 
-    def print_board(board_object, redraw=False, bottom_buffer=0, score=True):
+    def board_to_string(board_object, redraw=False, bottom_buffer=0, score=True):
 
         size = board_object.size
         board = board_object.board
@@ -116,7 +116,7 @@ class Utils():
         if score:
             end_line += "\nScore: " + str(board_object.score)
 
-        print(start_line + middle_lines + end_line)
+        return start_line + middle_lines + end_line
 
 
 class BoardState(Enum):
