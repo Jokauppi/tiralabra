@@ -7,11 +7,10 @@ from ui.menu import Menu
 
 
 class App():
-    def __init__(self, io):
-        self.io = io
-        self.menu = Menu(self.io)
-        self.game_ui = GameUI(self.io)
-        self.ai_ui = AIUI(self.io)
+    def __init__(self):
+        self.menu = Menu()
+        self.game_ui = GameUI()
+        self.ai_ui = AIUI()
 
     def run(self):
 

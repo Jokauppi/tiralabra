@@ -13,10 +13,9 @@ from ai.expectimax_ai import ExpectimaxAI
 
 
 class AIBenchmark():
-    def __init__(self, io):
-        self.io = io
-        self.menu = Menu(self.io)
-        self.algorithm_menu = AlgorithmMenu(self.io)
+    def __init__(self):
+        self.menu = Menu()
+        self.algorithm_menu = AlgorithmMenu()
         self.random_ai = RandomAI()
         self.expectimax_ai = ExpectimaxAI()
 
@@ -28,7 +27,10 @@ class AIBenchmark():
         if games == "":
             games = 1
 
-        self.run_ai(ai, games)
+        try:
+            self.run_ai(ai, games)
+        except BaseException:
+            pass
 
     def run_ai(self, ai, game_amount):
 

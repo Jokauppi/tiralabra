@@ -3,9 +3,8 @@ from ui.menu import Menu
 
 
 class SeedUI():
-    def __init__(self, io):
-        self.io = io
-        self.menu = Menu(self.io)
+    def __init__(self):
+        self.menu = Menu()
 
     def view(self):
 
@@ -27,7 +26,7 @@ class SeedUI():
         return seed
 
     def ask_seed(self):
-        return self.io.input("Input a seed: ")
+        return input("Input a seed: ")
 
     def rand_seed(self):
         return random.getrandbits(32)

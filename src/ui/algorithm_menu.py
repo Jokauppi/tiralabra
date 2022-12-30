@@ -5,9 +5,8 @@ from ai.expectimax_ai import ExpectimaxAI
 
 
 class AlgorithmMenu():
-    def __init__(self, io):
-        self.io = io
-        self.menu = Menu(self.io)
+    def __init__(self):
+        self.menu = Menu()
         self.random_ai = RandomAI()
         self.expectimax_ai = ExpectimaxAI()
 

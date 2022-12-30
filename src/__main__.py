@@ -1,10 +1,14 @@
+"""
+Application can be started by calling this module.
+Application for playing and viewing and testing algorithms for the game 2048.
+"""
+
 from ui.app import App
-from ui.io.console_io import ConsoleIO
 
 
 def main():
-    io = ConsoleIO()
-    app = App(io)
+    """Starts the application."""
+    app = App()
     app.run()
 
 

@@ -11,10 +11,9 @@ import random
 
 
 class AIVisual():
-    def __init__(self, io):
-        self.io = io
-        self.menu = Menu(self.io)
-        self.algorithm_menu = AlgorithmMenu(self.io)
+    def __init__(self):
+        self.menu = Menu()
+        self.algorithm_menu = AlgorithmMenu()
         self.random_ai = RandomAI()
         self.expectimax_ai = ExpectimaxAI()
 
@@ -42,7 +41,10 @@ class AIVisual():
 
         speed = self.menu.show(speeds, "Choose Game Speed", cancel=False)
 
-        self.run_ai(ai, speed)
+        try:
+            self.run_ai(ai, speed)
+        except BaseException:
+            pass
 
     def run_ai(self, ai, speed):
         seed = random.getrandbits(32)

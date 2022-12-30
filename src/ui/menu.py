@@ -2,7 +2,7 @@ from simple_term_menu import TerminalMenu
 
 
 class Menu:
-    def __init__(self, io):
+    def __init__(self):
         pass
 
     def show(self, commands, title=None, cancel=True):
