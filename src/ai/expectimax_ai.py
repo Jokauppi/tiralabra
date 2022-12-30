@@ -16,9 +16,11 @@ class ExpectimaxAI ():
             Direction.RIGHT,
             Direction.DOWN,
             Direction.LEFT]
-        
-        self.snake_weights = np.array([[4,5,12,13],[3,6,11,14],[2,7,10,15],[1,8,9,16]])
-        self.edge_weights = np.array([[100,10,10,100],[10,1,1,10],[10,1,1,10],[100,10,10,100]])
+
+        self.snake_weights = np.array(
+            [[4, 5, 12, 13], [3, 6, 11, 14], [2, 7, 10, 15], [1, 8, 9, 16]])
+        self.edge_weights = np.array([[100, 10, 10, 100], [10, 1, 1, 10], [
+                                     10, 1, 1, 10], [100, 10, 10, 100]])
 
     def get_move(self, board: Board):
 
@@ -28,11 +30,11 @@ class ExpectimaxAI ():
         for move in self.moves:
             board_child = copy(board)
             board_child.move(move, add_number=False, check_state=False)
-            
+
             if move != board_child.immovable_direction:
                 board_child.check_state()
                 child_value = self.__expectimax(board_child, self.depth)
-            
+
                 if child_value > best_value:
                     best_value = child_value
                     best_move = move
@@ -65,8 +67,8 @@ class ExpectimaxAI ():
                 board_child = copy(board)
                 board_child.put_number(new_tile[0], new_tile[1])
                 board_child.check_loss()
-                a = a + (1.0 / free_tiles_amount * \
-                         new_tile[2] * self.__expectimax(board_child, depth - 1, players_turn=True))
+                a = a + (1.0 / free_tiles_amount * new_tile[2] * self.__expectimax(
+                    board_child, depth - 1, players_turn=True))
 
         return a
 
@@ -76,22 +78,21 @@ class ExpectimaxAI ():
     def get_heuristics(self):
         return [
             {
-            "action": self.snake,
-            "message": "Weighed in snake pattern",
-            "shortcut": "s"
+                "action": self.snake,
+                "message": "Weighed in snake pattern",
+                "shortcut": "s"
             },
             {
-            "action": self.score,
-            "message": "Score based",
-            "shortcut": "c"
+                "action": self.score,
+                "message": "Score based",
+                "shortcut": "c"
             },
             {
-            "action": self.edge,
-            "message": "Weighed on board edges",
-            "shortcut": "e"
+                "action": self.edge,
+                "message": "Weighed on board edges",
+                "shortcut": "e"
             }
         ]
-        
 
     def set_heuristics(self, heuristics):
         self.heuristic_func = heuristics

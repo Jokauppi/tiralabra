@@ -1,11 +1,17 @@
 import numpy as np
-from src.game.board_utils import Utils as utils
-from src.game.board_utils import BoardState, Direction
+from game.board_utils import Utils as utils
+from game.board_utils import BoardState, Direction
 import random
 
 
 class Board():
-    def __init__(self, seed: int, board_size: int = 4, initial=None, score=0, set_seed=True):
+    def __init__(
+            self,
+            seed: int,
+            board_size: int = 4,
+            initial=None,
+            score=0,
+            set_seed=True):
         self.seed = seed
         if set_seed:
             random.seed(self.seed)
@@ -147,7 +153,12 @@ class Board():
         print(utils.board_to_string(self))
 
     def __copy__(self):
-       new_board = Board(self.seed, self.size, initial=self.board.copy(), score=self.score, set_seed=False)
-       new_board.last_move = self.last_move
-       new_board.immovable_direction = self.immovable_direction
-       return new_board
+        new_board = Board(
+            self.seed,
+            self.size,
+            initial=self.board.copy(),
+            score=self.score,
+            set_seed=False)
+        new_board.last_move = self.last_move
+        new_board.immovable_direction = self.immovable_direction
+        return new_board

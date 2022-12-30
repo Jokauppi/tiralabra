@@ -1,6 +1,7 @@
 from enum import Enum
 import numpy.typing as npt
 
+
 class Utils():
     def __init__(self):
         pass
@@ -80,7 +81,11 @@ class Utils():
                 return True
         return False
 
-    def board_to_string(board_object, redraw=False, bottom_buffer=0, score=True):
+    def board_to_string(
+            board_object,
+            redraw=False,
+            bottom_buffer=0,
+            score=True):
 
         size = board_object.size
         board = board_object.board

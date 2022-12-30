@@ -1,11 +1,10 @@
 
 import threading
-import traceback
 import random
-from game.board_utils import Utils as utils
 from game.board_utils import BoardState
 from game.board import Board
 from ui.menu import Menu
+from ui.algorithm_menu import AlgorithmMenu
 from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
 import time
@@ -17,43 +16,17 @@ class AIBenchmark():
     def __init__(self, io):
         self.io = io
         self.menu = Menu(self.io)
+        self.algorithm_menu = AlgorithmMenu(self.io)
         self.random_ai = RandomAI()
         self.expectimax_ai = ExpectimaxAI()
 
-
     def view(self):
-        ai_choices = [
-            {
-                "action": self.expectimax_ai,
-                "message": "Expectimax algorithm",
-                "shortcut": "e"
-            },
-            {
-                "action": self.random_ai,
-                "message": "Random moves",
-                "shortcut": "r"
-            }
-        ]
 
-        try:
-            ai = self.menu.show(ai_choices, "Choose algorithm", cancel=False)
-            games = input("Amount of games:")
-        except BaseException as e:
-            print(traceback.format_exc())
+        ai = self.algorithm_menu.view()
 
-        if hasattr(ai, "set_heuristics"):
-            try:
-                heuristics = self.menu.show(ai.get_heuristics(), "Choose heuristics", cancel=False)
-                ai.set_heuristics(heuristics)
-            except BaseException as e:
-                print(traceback.format_exc())
-
-        if hasattr(ai, "set_depth"):
-            depth = input("Set algorithm search depth [empty = 3]: ")
-            if depth == "":
-                ai.set_depth(3)
-            else:
-                ai.set_depth(int(depth))
+        games = input("Amount of games:")
+        if games == "":
+            games = 1
 
         self.run_ai(ai, games)
 
@@ -97,8 +70,11 @@ class AIBenchmark():
         max_numbers.sort()
 
         try:
-            avg_victory_time = str(timedelta(microseconds=((sum(game_times) / len(game_times)) / 1000)))
-        except:
+            avg_victory_time = str(
+                timedelta(
+                    microseconds=(
+                        (sum(game_times) / len(game_times)) / 1000)))
+        except BaseException:
             avg_victory_time = "-"
 
         print("""
@@ -128,4 +104,5 @@ Median highest number: {med_number}
         max_number_occurrences = Counter(max_numbers)
         print("=========\nHIGHEST NUMBERS OCCURRENCES")
         for number in list(max_number_occurrences):
-            print((str(number) + ":").ljust(7) + max_number_occurrences[number] * "*")
+            print((str(number) + ":").ljust(7) +
+                  max_number_occurrences[number] * "*")

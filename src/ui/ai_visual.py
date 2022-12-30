@@ -5,6 +5,7 @@ from game.board import Board
 from game.board_utils import BoardState
 from game.board_utils import Utils as utils
 from ui.menu import Menu
+from ui.algorithm_menu import AlgorithmMenu
 from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
 import random
@@ -14,27 +15,13 @@ class AIVisual():
     def __init__(self, io):
         self.io = io
         self.menu = Menu(self.io)
+        self.algorithm_menu = AlgorithmMenu(self.io)
         self.random_ai = RandomAI()
         self.expectimax_ai = ExpectimaxAI()
 
     def view(self):
-        ai_choices = [
-            {
-                "action": self.expectimax_ai,
-                "message": "Expectimax algorithm",
-                "shortcut": "e"
-            },
-            {
-                "action": self.random_ai,
-                "message": "Random moves",
-                "shortcut": "r"
-            }
-        ]
 
-        try:
-            ai = self.menu.show(ai_choices, "Choose algorithm",cancel=False)
-        except BaseException as e:
-            print(traceback.format_exc())
+        ai = self.algorithm_menu.view()
 
         speeds = [
             {
@@ -55,23 +42,9 @@ class AIVisual():
         ]
 
         try:
-            speed = self.menu.show(speeds, "Choose Game Speed",cancel=False)
+            speed = self.menu.show(speeds, "Choose Game Speed", cancel=False)
         except BaseException as e:
             print(traceback.format_exc())
-
-        if hasattr(ai, "set_heuristics"):
-            try:
-                heuristics = self.menu.show(ai.get_heuristics(), "Choose Heuristics", cancel=False)
-                ai.set_heuristics(heuristics)
-            except BaseException as e:
-                print(traceback.format_exc())
-
-        if hasattr(ai, "set_depth"):
-            depth = input("Set algorithm search depth [empty = 3]: ")
-            if depth == "":
-                ai.set_depth(3)
-            else:
-                ai.set_depth(int(depth))
 
         self.run_ai(ai, speed)
 
@@ -97,4 +70,3 @@ class AIVisual():
                 move = ai.get_move(board)
                 board.move(move)
                 print(utils.board_to_string(board, redraw=True))
-        

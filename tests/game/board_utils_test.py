@@ -1,6 +1,6 @@
 import numpy as np
-from src.game.board_utils import Utils as utils
-from src.game.board import Board
+from game.board_utils import Utils as utils
+from game.board import Board
 
 class TestBoardUtilsLinePush:
 

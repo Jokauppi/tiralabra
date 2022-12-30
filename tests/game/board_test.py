@@ -1,6 +1,6 @@
 import numpy as np
-from src.game.board import Board
-from src.game.board_utils import Direction, BoardState
+from game.board import Board
+from game.board_utils import Direction, BoardState
 
 class TestBoardMoves:
 
