@@ -1,7 +1,7 @@
+import random
 import numpy as np
 from game.board_utils import Utils as utils
 from game.board_utils import BoardState, Direction
-import random
 
 
 class Board():
@@ -34,7 +34,7 @@ class Board():
 
         for line in range(self.size):
 
-            if direction == Direction.UP or direction == Direction.DOWN:
+            if direction in (Direction.UP, Direction.DOWN):
 
                 old_line = self.__get_column(line)
 
@@ -150,7 +150,7 @@ class Board():
         self.board[:, index] = values
 
     def __str__(self) -> str:
-        print(utils.board_to_string(self))
+        utils.board_to_string(self)
 
     def __copy__(self):
         new_board = Board(

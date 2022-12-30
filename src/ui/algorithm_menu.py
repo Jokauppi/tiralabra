@@ -1,5 +1,4 @@
 
-import traceback
 from ui.menu import Menu
 from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
@@ -26,18 +25,12 @@ class AlgorithmMenu():
             }
         ]
 
-        try:
-            ai = self.menu.show(ai_choices, "Choose algorithm", cancel=False)
-        except BaseException as e:
-            print(traceback.format_exc())
+        ai = self.menu.show(ai_choices, "Choose algorithm", cancel=False)
 
         if hasattr(ai, "set_heuristics"):
-            try:
-                heuristics = self.menu.show(
-                    ai.get_heuristics(), "Choose heuristics", cancel=False)
-                ai.set_heuristics(heuristics)
-            except BaseException as e:
-                print(traceback.format_exc())
+            heuristics = self.menu.show(
+                ai.get_heuristics(), "Choose heuristics", cancel=False)
+            ai.set_heuristics(heuristics)
 
         if hasattr(ai, "set_depth"):
             depth = input("Set algorithm search depth [empty = 3]: ")

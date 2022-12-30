@@ -1,15 +1,15 @@
 
 import threading
 import random
+import time
+from datetime import timedelta
+from collections import Counter
 from game.board_utils import BoardState
 from game.board import Board
 from ui.menu import Menu
 from ui.algorithm_menu import AlgorithmMenu
 from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
-import time
-from datetime import timedelta
-from collections import Counter
 
 
 class AIBenchmark():

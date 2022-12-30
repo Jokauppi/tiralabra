@@ -1,5 +1,4 @@
 
-from game.board import Board
 from ui.menu import Menu
 from ui.ai_benchmark import AIBenchmark
 from ui.ai_visual import AIVisual
@@ -26,7 +25,4 @@ class AIUI():
             }
         ]
 
-        try:
-            self.menu.show(commands).view()
-        except BaseException as e:
-            pass
+        self.menu.show(commands).view()

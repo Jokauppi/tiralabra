@@ -1,8 +1,8 @@
 import sys
 from copy import copy
+import numpy as np
 from game.board_utils import Direction, BoardState
 from game.board import Board
-import numpy as np
 
 
 class ExpectimaxAI ():

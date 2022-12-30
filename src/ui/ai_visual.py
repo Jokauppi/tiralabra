@@ -1,6 +1,5 @@
 
 from time import sleep
-import traceback
 from game.board import Board
 from game.board_utils import BoardState
 from game.board_utils import Utils as utils
@@ -41,10 +40,7 @@ class AIVisual():
             }
         ]
 
-        try:
-            speed = self.menu.show(speeds, "Choose Game Speed", cancel=False)
-        except BaseException as e:
-            print(traceback.format_exc())
+        speed = self.menu.show(speeds, "Choose Game Speed", cancel=False)
 
         self.run_ai(ai, speed)
 

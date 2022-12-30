@@ -1,75 +1,78 @@
 from enum import Enum
+from typing import Tuple
 import numpy.typing as npt
 
 
 class Utils():
-    def __init__(self):
-        pass
 
-    def push_line(line: npt.ArrayLike) -> npt.ArrayLike:
+    def push_line(line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
 
-        p1 = len(line) - 2
-        p2 = len(line) - 1
+        pointer_1 = len(line) - 2
+        pointer_2 = len(line) - 1
 
         modified = False
         score = 0
 
-        while p1 >= 0:
-            if line[p1] > 0 and line[p2] == 0:
-                line[p2] = line[p1]
-                line[p1] = 0
-                p1 -= 1
+        # pylint: disable=unsubscriptable-object, unsupported-assignment-operation
+
+        while pointer_1 >= 0:
+            if line[pointer_1] > 0 and line[pointer_2] == 0:
+                line[pointer_2] = line[pointer_1]
+                line[pointer_1] = 0
+                pointer_1 -= 1
                 modified = True
-            elif line[p1] == 0:
-                p1 -= 1
-            elif line[p1] == line[p2]:
-                line[p2] *= 2
-                line[p1] = 0
-                score += line[p2]
-                p1 -= 1
-                p2 -= 1
+            elif line[pointer_1] == 0:
+                pointer_1 -= 1
+            elif line[pointer_1] == line[pointer_2]:
+                line[pointer_2] *= 2
+                line[pointer_1] = 0
+                score += line[pointer_2]
+                pointer_1 -= 1
+                pointer_2 -= 1
                 modified = True
-            elif line[p1] > 0 and line[p2] > 0:
-                if p2 - 1 == p1:
-                    p1 -= 1
-                    p2 -= 1
+            elif line[pointer_1] > 0 and line[pointer_2] > 0:
+                if pointer_2 - 1 == pointer_1:
+                    pointer_1 -= 1
+                    pointer_2 -= 1
                 else:
-                    p2 -= 1
+                    pointer_2 -= 1
             else:
                 raise Exception("unnoticed line push case")
 
         return (line, modified, score)
 
-    def pull_line(line: npt.ArrayLike):
+    def pull_line(line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+
+        # pylint: disable=unsubscriptable-object, unsupported-assignment-operation
 
         max = len(line)
-        p1 = 0
-        p2 = 1
+        pointer_1 = 0
+        pointer_2 = 1
 
         modified = False
         score = 0
 
-        while p2 < max:
-            if line[p2] > 0 and line[p1] == 0:
-                line[p1] = line[p2]
-                line[p2] = 0
-                p2 += 1
+        while pointer_2 < max:
+            if line[pointer_2] > 0 and line[pointer_1] == 0:
+                line[pointer_1] = line[pointer_2]
+                line[pointer_2] = 0
+                pointer_2 += 1
                 modified = True
-            elif line[p2] == 0:
-                p2 += 1
-            elif line[p1] == line[p2]:
-                line[p1] *= 2
-                line[p2] = 0
-                score += line[p1]
-                p1 += 1
-                p2 += 1
+            elif line[pointer_2] == 0:
+                pointer_2 += 1
+            elif line[pointer_1] == line[pointer_2]:
+                line[pointer_1] *= 2
+                line[pointer_2] = 0
+                score += line[pointer_1]
+                pointer_1 += 1
+                pointer_2 += 1
                 modified = True
-            elif line[p1] > 0 and line[p2] > 0:
-                if p1 + 1 == p2:
-                    p1 += 1
-                    p2 += 1
+            elif line[pointer_1] > 0 and line[pointer_2] > 0:
+                if pointer_1 + 1 == pointer_2:
+                    pointer_1 += 1
+                    pointer_2 += 1
                 else:
-                    p1 += 1
+                    pointer_1 += 1
             else:
                 raise Exception("unnoticed line push case")
 
