@@ -2,9 +2,6 @@ name: Build
 on: [push]
 jobs:
   ci:
-    env:
-      OS: ubuntu-latest
-      PYTHON: '3.10.9'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,9 +21,6 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:
           name: codecov-2048
-          directory: ./coverage/reports/
           files: ./coverage.xml
-          env_vars: OS,PYTHON
-          flags: unittests
           fail_ci_if_error: true
-          verbose: true
+          verbose: false
