@@ -101,3 +101,19 @@ class TestBoardMoves:
         desired = np.array([[2,0,0,0],[0,0,0,1024],[0,0,0,0],[0,0,0,0]])
         assert np.array_equal(desired, board.board)
         assert board.score == 1024
+
+    # Win and Lose states
+
+    def test_move_win(self):
+        board = Board(123, initial=np.array([[0,0,0,0],[0,0,1024,0],[0,0,1024,0],[0,0,0,0]]))
+        board.move(Direction.DOWN)
+        desired = np.array([[2,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,2048,0]])
+        assert np.array_equal(desired, board.board)
+        assert board.state == BoardState.WON
+
+    def test_move_loss(self):
+        board = Board(123, initial=np.array([[2,4,2,4],[4,8,4,8],[8,16,8,16],[32,64,128,128]]))
+        board.move(Direction.RIGHT)
+        desired = np.array([[2,4,2,4],[4,8,4,8],[8,16,8,16],[2,32,64,256]])
+        assert np.array_equal(desired, board.board)
+        assert board.state == BoardState.LOST
