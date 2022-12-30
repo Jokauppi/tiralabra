@@ -1,11 +1,11 @@
 from enum import Enum
-
+import numpy.typing as npt
 
 class Utils():
     def __init__(self):
         pass
 
-    def move_line_forwards(line):
+    def push_line(line: npt.ArrayLike) -> npt.ArrayLike:
 
         p1 = len(line) - 2
         p2 = len(line) - 1
@@ -39,7 +39,7 @@ class Utils():
 
         return (line, modified, score)
 
-    def move_line_backwards(line):
+    def pull_line(line: npt.ArrayLike):
 
         max = len(line)
         p1 = 0
