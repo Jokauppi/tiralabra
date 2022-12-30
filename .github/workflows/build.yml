@@ -13,7 +13,7 @@ jobs:
       - name: Install deps
         run: poetry install
       - name: Tests
-        run: poetry run pytest
+        run: poetry run pytest -v
       - name: Coverage
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
@@ -21,5 +21,6 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:
           name: codecov-2048
+          files: ./coverage.xml
           fail_ci_if_error: true
-          verbose: true
+          verbose: false
