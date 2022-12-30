@@ -4,7 +4,7 @@ from src.game.board import Board
 
 class TestBoardUtilsLinePush:
 
-    # Test number movement
+    # Test tile movement
 
     def test_line_push_no_change(self):
         initial = np.array([0,0,0,2])
@@ -136,7 +136,7 @@ class TestBoardUtilsLinePush:
 
 class TestBoardUtilsLinePull:
 
-    # Test number movement
+    # Test tile movement
 
     def test_line_pull_no_change(self):
         initial = np.array([2,0,0,0])
