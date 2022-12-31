@@ -48,9 +48,9 @@ class AlgorithmMenu():
             ai.set_heuristics(heuristics)
 
         if hasattr(ai, "set_depth"):
-            depth = input("Set algorithm search depth [empty = 3]: ")
+            depth = input("Set algorithm search depth [empty = 4]: ")
             if depth == "":
-                ai.set_depth(3)
+                ai.set_depth(4)
             else:
                 ai.set_depth(int(depth))
 

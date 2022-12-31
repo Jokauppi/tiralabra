@@ -62,7 +62,8 @@ class GameUI():
                     command()
                 else:
                     board.move(command)
-                    print(self.utils.board_to_string(board, redraw=True))
+                    print(self.utils.board_to_string(board, redraw=False))
+                    print(board.board)
                     if board.state == BoardState.LOST:
                         print("GAME LOST!")
                         self.__quit_game()

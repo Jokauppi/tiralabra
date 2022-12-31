@@ -22,7 +22,7 @@ class ExpectimaxAI ():
     def __init__(self):
         """Constructor for the class"""
         self.heuristic_func = self.score
-        self.depth = 3
+        self.depth = 4
 
         self.moves = [
             Direction.UP,
@@ -55,7 +55,7 @@ class ExpectimaxAI ():
 
             if move != board_child.immovable_direction:
                 board_child.check_state()
-                child_value = self.__expectimax(board_child, self.depth)
+                child_value = self.__expectimax(board_child, self.depth-1)
 
                 if child_value > best_value:
                     best_value = child_value

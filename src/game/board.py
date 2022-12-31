@@ -48,7 +48,7 @@ class Board():
         """
         self.utils = Utils()
 
-        self.seed = seed
+        self.seed = int(seed)
         if set_seed:
             random.seed(self.seed)
         self.size = board_size

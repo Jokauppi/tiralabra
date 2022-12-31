@@ -146,3 +146,13 @@ class TestBoardMoves:
                            8, 16, 8, 16], [2, 32, 64, 256]])
         assert np.array_equal(desired, board.board)
         assert board.state == BoardState.LOST
+
+class TestBoardMethods:
+
+    def test_board_initialization(self):
+        board = Board(123)
+        desired = np.array([[0, 2, 2, 0], [0, 0, 0, 0],
+                           [0, 0, 0, 0], [0, 0, 0, 0]])
+        assert np.array_equal(desired, board.board)
+        assert board.state == BoardState.INPROGRESS
+        assert board.score == 0
