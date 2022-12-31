@@ -11,9 +11,9 @@ class AIUI():
     a benchmarking for measuring algorithm success rate and performance.
 
     Attributes:
-        menu: class to display the menu
-        ai_visual: class to start the visual mode
-        ai_benchmark: class to start the benchmark mode
+        menu: General menu class to display the menu.
+        ai_visual: Class to start the visual mode.
+        ai_benchmark: Class to start the benchmark mode.
 
     """
 

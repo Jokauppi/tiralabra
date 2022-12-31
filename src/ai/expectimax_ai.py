@@ -1,3 +1,4 @@
+"""Expectimax algorithm for providing moves based on the game state."""
 import sys
 from copy import copy
 import numpy as np
@@ -6,8 +7,19 @@ from game.board import Board
 
 
 class ExpectimaxAI ():
-    def __init__(self):
+    """
+    Algorithm for providing game moves based on the expectimax algrithm and various simple heuristic functions.
 
+    Attributes:
+        heuristic_func: Method that provides a value for a given game state.
+        depth: Search depth to be used in the algorithm.
+        moves: Possible moves to be tried.
+        zigzag_weights: Weight array to be used by the zigzag heuristic method.
+        edge_weights: Weight array to be used by the edge heuristic method.
+    """
+
+    def __init__(self):
+        """Constructor for the class"""
         self.heuristic_func = self.score
         self.depth = 3
 
@@ -17,12 +29,21 @@ class ExpectimaxAI ():
             Direction.DOWN,
             Direction.LEFT]
 
-        self.snake_weights = np.array(
+        self.zigzag_weights = np.array(
             [[4, 5, 12, 13], [3, 6, 11, 14], [2, 7, 10, 15], [1, 8, 9, 16]])
         self.edge_weights = np.array([[100, 10, 10, 100], [10, 1, 1, 10], [
                                      10, 1, 1, 10], [100, 10, 10, 100]])
 
     def get_move(self, board: Board):
+        """
+        Gives the best move according to the algorithm based on the game state.
+
+        Parameters:
+            board (Board): The current game state.
+
+        Returns:
+            Direction: Move to be made.
+        """
 
         best_value = -sys.maxsize
         best_move = None
@@ -42,6 +63,19 @@ class ExpectimaxAI ():
         return best_move
 
     def __expectimax(self, board: Board, depth, players_turn=False):
+        """
+        Expectimax method to give value of a node at a certain depth. Recursively searches for possible moves and
+        at the specified depth calculates the board value. On the players turn the value is maximized, on the computers
+        turn the propabilities of possible outcomes are \"expected\".
+
+        Parameters:
+            board (Board): The board state a node.
+            depth (int): The depth to search down to.
+            players_turn (bool): Determines if it's the players or computers turn.
+
+        Returns:
+            float: node value
+        """
 
         if depth == 0 or board.state == BoardState.LOST:
             return self.heuristic_func(board)
@@ -61,61 +95,110 @@ class ExpectimaxAI ():
 
             a = 0
             possible_numbers = board.possible_new_numbers()
-            free_tiles_amount = len(possible_numbers) / 2
 
             for new_tile in possible_numbers:
                 board_child = copy(board)
                 board_child.put_number(new_tile[0], new_tile[1])
                 board_child.check_loss()
-                a = a + (1.0 / free_tiles_amount * new_tile[2] * self.__expectimax(
+                a = a + (new_tile[2] * self.__expectimax(
                     board_child, depth - 1, players_turn=True))
 
         return a
 
     def set_depth(self, depth):
+        """
+        Sets the algorithm depth.
+
+        Parameters:
+            depth (int): Depth to be set.
+        """
         self.depth = depth
 
     def get_heuristics(self):
+        """
+        Gets a list of the possible heuristic funtions and
+        their descriptions and shortcuts to be used by AlgorithmMenu
+        """
         return [
             {
-                "action": self.snake,
-                "message": "Weighed in snake pattern",
-                "shortcut": "s"
+                "action": self.zigzag,
+                "message": "Weighed zigzag",
+                "shortcut": "z"
+            },
+            {
+                "action": self.corner,
+                "message": "Weighed corner",
+                "shortcut": "c"
             },
             {
                 "action": self.score,
                 "message": "Score based",
-                "shortcut": "c"
+                "shortcut": "s"
             },
             {
                 "action": self.edge,
-                "message": "Weighed on board edges",
+                "message": "Weighed edges",
                 "shortcut": "e"
             }
         ]
 
-    def set_heuristics(self, heuristics):
-        self.heuristic_func = heuristics
+    def set_heuristics(self, heuristic):
+        """
+        Sets the heuristic method to be used by the algorithm.
+
+        Parameters:
+            heuristic: Heuristics method to be used.
+        """
+        self.heuristic_func = heuristic
 
     def score(self, board: Board):
+        """
+        Score based heuristic method. Prefers game states with higher scores
+
+        Parameters:
+            board (Board): The game state at a node.
+        """
         if board.state == BoardState.LOST:
             return 0
         if board.state == BoardState.WON:
             return board.score * 2
         return board.score
 
-    def snake(self, board: Board):
+    def zigzag(self, board: Board):
+        """
+        Weighed zigzag based heuristic method. Prefers tiles to be in a zigzag patter in decreasing order.
+
+        Parameters:
+            board (Board): The game state at a node.
+        """
         if board.state == BoardState.LOST:
             return 0
-        return np.sum(np.multiply(board.board, self.snake_weights))
+        return np.sum(np.multiply(board.board, self.zigzag_weights))
+
+    def corner(self, board: Board):
+        """
+        Weighed corner based heuristic method. Prefers larger tiles to be close to a single corner.
+
+        Parameters:
+            board (Board): The game state at a node.
+        """
+        if board.state == BoardState.LOST:
+            return 0
+
+        sum = 0
+        for i in range(board.size):
+            for j in range(board.size):
+                sum += (i + j) * board.board[i][j]
+
+        return sum
 
     def edge(self, board: Board):
+        """
+        Weighed edge based heuristic method. Prefers larger tiles to be on any of the corners..
+
+        Parameters:
+            board (Board): The game state at a node.
+        """
         if board.state == BoardState.LOST:
             return 0
         return np.sum(np.multiply(board.board, self.edge_weights))
-
-    def snake_and_empty_space(self, board: Board):
-        pass
-
-    def edge_and_empty_space(self, board: Board):
-        pass

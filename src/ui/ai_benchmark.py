@@ -8,16 +8,12 @@ from game.board_utils import BoardState
 from game.board import Board
 from ui.menu import Menu
 from ui.algorithm_menu import AlgorithmMenu
-from ai.random_ai import RandomAI
-from ai.expectimax_ai import ExpectimaxAI
 
 
 class AIBenchmark():
     def __init__(self):
         self.menu = Menu()
         self.algorithm_menu = AlgorithmMenu()
-        self.random_ai = RandomAI()
-        self.expectimax_ai = ExpectimaxAI()
 
     def view(self):
 

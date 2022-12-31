@@ -1,16 +1,32 @@
-
+"""Menu for choosing the game algorithm to use"""
 from ui.menu import Menu
 from ai.random_ai import RandomAI
 from ai.expectimax_ai import ExpectimaxAI
 
 
 class AlgorithmMenu():
+    """
+    Class for choosing an algorithm to be run and for setting algorithm specific options
+
+    menu: General menu class to display the menu.
+    random_ai: Class for the random move based algorithm.
+    expectimax_ai: Class for the expectimax based algorithm.
+    """
+
     def __init__(self):
+        """Constructor for the class"""
         self.menu = Menu()
         self.random_ai = RandomAI()
         self.expectimax_ai = ExpectimaxAI()
 
     def view(self):
+        """
+        Method for viewing the algorithm menu.
+        Also presents a menu for chosing the algorithm heuristics and search depth if applicable.
+
+        Returns:
+            An instance of the chosen algorithm.
+        """
         ai_choices = [
             {
                 "action": self.expectimax_ai,
