@@ -18,8 +18,9 @@ class Board():
         state (BoardState): Enum which signifies whether the game is in progress, won or lost.
         score (int): The score of the game state.
         last_move (Direction): The last move the player made.
-        immovable_direction (Direction): The last move the player made if the last move resulted in no changes on the board.
-            Otherwise None. Making this move next would not change the board state.
+        immovable_direction (Direction): The last move the player made if the last move
+            resulted in no changes on the board. Otherwise None.
+            Making this move next would not change the board state.
             Can be used in algorithms to prevent checking unneccessary moves.
     """
 
@@ -35,12 +36,16 @@ class Board():
 
         Parameters:
             seed (int): Seed number for generating random new tiles.
-            board_size (int): Size of the game board as length of the board side. Optional, default is 4.
+            board_size (int): Size of the game board as length of the board side.
+                Optional, default is 4.
             initial (NDArray/ArrayLike): The initial state of the board tiles.
-                Optional, if no initial state is supplied, two random tiles are added to an empty board.
+                Optional, if no initial state is supplied,
+                two random tiles are added to an empty board.
             score (int): Sets the score of the game state. Optional, default if 0.
-            set_seed (bool): Determines if the seed should be set when creating a new board state.
-                Used to prevent the seed being set every time a copy is made of the state e.g. in an algorithm.
+            set_seed (bool): Determines if the seed should be set when
+                creating a new board state.
+                Used to prevent the seed being set every tim
+                a copy is made of the state e.g. in an algorithm.
         """
         self.seed = seed
         if set_seed:
@@ -59,12 +64,14 @@ class Board():
 
     def move(self, direction: Direction, add_number=True, check_state=True):
         """
-        Moves the board in the supplied direction. Sets the score and game state accordingly and makes a random counter-move.
+        Moves the board in the supplied direction.
+        Sets the score and game state accordingly and makes a random counter-move.
 
         Parameters:
             Direction (Direction): Direction to move.
             add_number (bool): Optional, default True.
-                If True, the move leaves the board on the computers turn without making a counter-move.
+                If True, the move leaves the board on the computers turn
+                without making a counter-move.
             check_state (bool): Optional, default True.
                 Can be used to prevent checking win or loss.
                 Useful in algorithms when only the other needs to be checked on one turn or

@@ -1,19 +1,28 @@
-
+"""User playable view of the game"""
 from ui.quit import Quit
 from ui.seed import SeedUI
 from game.board import Board
 from game.board_utils import Utils as utils
 from game.board_utils import BoardState, Direction
 from ui.menu import Menu
-import numpy as np
 
 
 class GameUI():
+    """
+    Class for manually playing the game.
+
+    Attributes:
+        menu (Menu): General menu class for supplying the moves.
+        seed_ui: Menu for asking for the seed.
+    """
+
     def __init__(self):
-        self.seed_ui = SeedUI()
+        """Constructor for the class"""
         self.menu = Menu()
+        self.seed_ui = SeedUI()
 
     def view(self):
+        """Method to start the game"""
         seed = self.seed_ui.view()
         board = Board(seed)
         print(utils.board_to_string(board))
@@ -64,4 +73,5 @@ class GameUI():
                 break
 
     def __quit_game(self):
+        """Quit the game"""
         raise Quit

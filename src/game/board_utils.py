@@ -1,11 +1,24 @@
+"""Helper functions for manipulating the game board."""
 from enum import Enum
 from typing import Tuple
 import numpy.typing as npt
 
 
 class Utils():
+    """Class containing board utility function"""
+    def __init__(self):
+        """Constructor for the class"""
 
-    def push_line(line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+    def push_line(self, line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+        """
+        Pushes the numbers of the supplied line to the end and
+        combines equal adjacent values.
+        Values won't be combined to values that were
+        already combined during the same push.
+
+        Parameters:
+            line (ArrayLike): line to be pushed
+        """
 
         pointer_1 = len(line) - 2
         pointer_2 = len(line) - 1
@@ -41,7 +54,16 @@ class Utils():
 
         return (line, modified, score)
 
-    def pull_line(line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+    def pull_line(self, line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+        """
+        Pulls the numbers of the supplied line to the end and
+        combines equal adjacent values.
+        Values won't be combined to values that were
+        already combined during the same pull.
+
+        Parameters:
+            line (ArrayLike): line to be pulled
+        """
 
         # pylint: disable=unsubscriptable-object, unsupported-assignment-operation
 
@@ -78,17 +100,44 @@ class Utils():
 
         return (line, modified, score)
 
-    def is_line_movable(line):
+    def is_line_movable(self, line):
+        """
+        Checks if the supplied line is movable in either direction.
+
+        Parameters:
+            line: A row or the column of the game board.
+
+        Returns:
+            bool: whether the line is movable.
+        """
+        # pylint: disable=unsubscriptable-object, unsupported-assignment-operation
+
         for index in range(len(line) - 1):
             if line[index] == 0 or line[index] == line[index + 1]:
                 return True
         return False
 
     def board_to_string(
+            self,
             board_object,
             redraw=False,
             bottom_buffer=0,
             score=True):
+        """
+        Provides a string representation of the board state and score.
+
+        Parameters:
+            board_object (Board): Board to be converted.
+            redraw (bool): Whether to draw the board over the previous board.
+                Allows to "update the same board" without printing a new one.
+            bottom_buffer (int): Optional, default 0. Allows to rewind additional rows
+                if additional lines were printed after the board.
+            score (bool): Whether to print the score under the board.
+
+
+        Returns:
+            string: The board as a string
+        """
 
         size = board_object.size
         board = board_object.board
@@ -128,12 +177,14 @@ class Utils():
 
 
 class BoardState(Enum):
+    """Possible states of the game board"""
     INPROGRESS = 1
     LOST = 2
     WON = 3
 
 
 class Direction(Enum):
+    """Possible move directions in the game."""
     UP = 1
     RIGHT = 2
     DOWN = 3

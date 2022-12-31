@@ -1,11 +1,22 @@
+"""General terminal menu"""
 from simple_term_menu import TerminalMenu
 
 
 class Menu:
+    """General menu class to choose between supplied options"""
+
     def __init__(self):
-        pass
+        """Constructor for the class"""
 
     def show(self, commands, title=None, cancel=True):
+        """
+        Show a terminal menu with the supplied choices
+
+        Parameters:
+            commands: List of choices to show.
+            title: Optional, default None. A title to be shown. I left empty no title is shown.
+            cancel: Whether to include a cancel option in the list.
+        """
 
         options = commands.copy()
 
@@ -30,10 +41,15 @@ class Menu:
         return options[menu_entry_index]["action"]
 
     def no_op(self, *args):
-        pass
+        """No-op function for the cancel option"""
 
     def get_option(self, command):
+        """
+        Return string representation of a supplied menu choice.
 
+        Parameters:
+            command: Collection containing the menu choice message and shortcut.
+        """
         if command["shortcut"]:
             return f"[{command['shortcut']}] {command['message']}"
         return command["message"]

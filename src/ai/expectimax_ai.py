@@ -8,7 +8,8 @@ from game.board import Board
 
 class ExpectimaxAI ():
     """
-    Algorithm for providing game moves based on the expectimax algrithm and various simple heuristic functions.
+    Algorithm for providing game moves based on the expectimax algrithm and
+    various simple heuristic functions.
 
     Attributes:
         heuristic_func: Method that provides a value for a given game state.
@@ -64,8 +65,10 @@ class ExpectimaxAI ():
 
     def __expectimax(self, board: Board, depth, players_turn=False):
         """
-        Expectimax method to give value of a node at a certain depth. Recursively searches for possible moves and
-        at the specified depth calculates the board value. On the players turn the value is maximized, on the computers
+        Expectimax method to give value of a node at a certain depth.
+        Recursively searches for possible moves and
+        at the specified depth calculates the board value.
+        On the players turn the value is maximized, on the computers
         turn the propabilities of possible outcomes are \"expected\".
 
         Parameters:
@@ -82,7 +85,7 @@ class ExpectimaxAI ():
 
         if players_turn:
 
-            a = -sys.maxsize
+            e_max_value = -sys.maxsize
 
             for move in self.moves:
                 board_child = copy(board)
@@ -90,20 +93,22 @@ class ExpectimaxAI ():
 
                 if move != board_child.immovable_direction:
                     board_child.check_win()
-                    a = max(a, self.__expectimax(board_child, depth - 1))
+                    e_max_value = max(
+                        e_max_value, self.__expectimax(
+                            board_child, depth - 1))
         else:
 
-            a = 0
+            e_max_value = 0
             possible_numbers = board.possible_new_numbers()
 
             for new_tile in possible_numbers:
                 board_child = copy(board)
                 board_child.put_number(new_tile[0], new_tile[1])
                 board_child.check_loss()
-                a = a + (new_tile[2] * self.__expectimax(
+                e_max_value = e_max_value + (new_tile[2] * self.__expectimax(
                     board_child, depth - 1, players_turn=True))
 
-        return a
+        return e_max_value
 
     def set_depth(self, depth):
         """
@@ -166,7 +171,8 @@ class ExpectimaxAI ():
 
     def zigzag(self, board: Board):
         """
-        Weighed zigzag based heuristic method. Prefers tiles to be in a zigzag patter in decreasing order.
+        Weighed zigzag based heuristic method.
+        Prefers tiles to be in a zigzag patter in decreasing order.
 
         Parameters:
             board (Board): The game state at a node.

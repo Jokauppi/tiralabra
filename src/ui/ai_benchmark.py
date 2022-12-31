@@ -1,4 +1,4 @@
-
+"""Runs a game algorithm in benchmark mode."""
 import threading
 import random
 import time
@@ -6,16 +6,25 @@ from datetime import timedelta
 from collections import Counter
 from game.board_utils import BoardState
 from game.board import Board
-from ui.menu import Menu
 from ui.algorithm_menu import AlgorithmMenu
 
 
 class AIBenchmark():
+    """
+    Class for running a game algorithm without printing.
+    The games are timed and a summary of game statistics is shown.
+    Asks how many games should be run.
+
+    Attributes
+        algorithm_menu: Menu class for choosing the algorithm to use
+    """
+
     def __init__(self):
-        self.menu = Menu()
+        """Constructor for the class"""
         self.algorithm_menu = AlgorithmMenu()
 
     def view(self):
+        """Method for starting the benchmark view"""
 
         ai = self.algorithm_menu.view()
 
@@ -29,6 +38,13 @@ class AIBenchmark():
             pass
 
     def run_ai(self, ai, game_amount):
+        """
+        Private method for running the chosen algorithm for the specified amount of times.
+
+        Parameters:
+            ai: Game algorithm to be run.
+            game_amount (int): Amount of games to run.
+        """
 
         game_amount = int(game_amount)
         clock = time.pthread_getcpuclockid(threading.get_ident())
@@ -40,7 +56,7 @@ class AIBenchmark():
         game_times = []
 
         for game in range(game_amount):
-            seed = random.getrandbits(32)
+            seed = random.getrandbits(24)
             game_start = time.clock_gettime_ns(clock)
             board = Board(seed)
             while board.state == BoardState.INPROGRESS:

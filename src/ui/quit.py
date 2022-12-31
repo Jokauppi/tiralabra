@@ -1,2 +1,5 @@
+"""Helper for closing the program"""
+
+
 class Quit(Exception):
-    pass
+    """No-op class to aid in closing the program loop"""

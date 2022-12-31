@@ -267,6 +267,8 @@ valid-metaclass-classmethod-first-arg=cls
 
 [DESIGN]
 
+disable=too-few-public-methods
+
 # List of regular expressions of class ancestor names to ignore when counting
 # public methods (see R0903)
 exclude-too-few-public-methods=

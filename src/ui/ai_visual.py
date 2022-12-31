@@ -60,7 +60,7 @@ class AIVisual():
             ai: Game algorithm to be run.
             speed (float,int): Additional time to wait between moves in seconds.
         """
-        seed = random.getrandbits(32)
+        seed = random.getrandbits(24)
         print("Seed: " + str(seed))
         board = Board(seed, board_size=4)
         print(utils.board_to_string(board))
