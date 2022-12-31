@@ -76,7 +76,7 @@ class TestExpectimaxZigzagHeuristics:
     def test_max_in_corner(self):
         board = Board(123)
 
-        for _ in range(50):
+        for _ in range(25):
             board.move(self.algorithm.get_move(board))
 
         assert board.board[3][3] == board.get_max_number()
