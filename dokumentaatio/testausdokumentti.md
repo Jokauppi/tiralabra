@@ -58,15 +58,13 @@ HIGHEST NUMBERS OCCURRENCES
 
 ### Syvyys
 
-Syvyydellä oli merkittävä vaikutus algoritmin käyttämään keskimääräisiin siirto- ja voittoaikoihin. Voitto
+Syvyydellä oli merkittävä vaikutus algoritmin käyttämään keskimääräisiin siirto- ja voittoaikoihin. Voittoprosenttia syvyyden kasvattaminen nosti reilusti mutta vähenevin tuloksin.
 
 |Algorimi ja heuristiikka|Syvyys|aika/siirto (ms)|aika alusta voittoon (s)|voitto%|
 |---|---|---|---|---|
 |Expectimax + Zigzag|3|5,7|6,2|57,0|
 |Expectimax + Zigzag|4|34,3|41|81,7|
-|Expectimax + Zigzag|5|||~92|
-
-
+|Expectimax + Zigzag|5|221,1|343|~92|
 
 ### Heuristiikka
 Heuristiikalla ei ollut yhtä suurta vaikutusta siirto- tai voittoaikoihin, mutta vaikutus voittoprosenttiin oli merkittävä.
@@ -74,6 +72,6 @@ Heuristiikalla ei ollut yhtä suurta vaikutusta siirto- tai voittoaikoihin, mutt
 |Algorimi ja heuristiikka|Syvyys|aika/siirto (ms)|aika alusta voittoon (s)|voitto%|
 |---|---|---|---|---|
 |Expectimax + Zigzag|3|5,7|6,2|57,0|
-|Expectimax + Corner|3||||
-|Expectimax + Score|3||||
-|Expectimax + Zigzag|3||||
+|Expectimax + Corner|3|5,6|6,9|38,3|
+|Expectimax + Score|3|4,8|4,2|1,7|
+|Expectimax + Edge|3|4,6|-|0|
