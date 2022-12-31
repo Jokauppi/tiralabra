@@ -16,7 +16,7 @@ Osaamani kielet:
 
 ## Ongelma
 
-Tavoitteena on tekoälyn luominen 2048-peliin, joka mahdollisimman suurella todennäköisyydellä ja kiitettävällä suoritusajalla pystyy muodostamaan $2048$ ruudun $4\times4$ ruudukossa ja $2^{⌊\frac{10\cdot n^2}{16}⌋}$ ruudun $n\times n$ ruudukossa.
+Tavoitteena on tekoälyn luominen 2048-peliin, joka mahdollisimman suurella todennäköisyydellä ja kiitettävällä suoritusajalla pystyy muodostamaan $2048$-ruudun $4\times4$ ruudukossa ja $2^{⌊\frac{10\cdot n^2}{16}⌋}$ -ruudun $n\times n$ ruudukossa.
 
 ## Algoritmi
 
