@@ -6,10 +6,12 @@ import numpy.typing as npt
 
 class Utils():
     """Class containing board utility function"""
+
     def __init__(self):
         """Constructor for the class"""
 
-    def push_line(self, line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+    def push_line(
+            self, line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
         """
         Pushes the numbers of the supplied line to the end and
         combines equal adjacent values.
@@ -54,7 +56,8 @@ class Utils():
 
         return (line, modified, score)
 
-    def pull_line(self, line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
+    def pull_line(
+            self, line: npt.ArrayLike) -> Tuple[npt.ArrayLike, bool, int]:
         """
         Pulls the numbers of the supplied line to the end and
         combines equal adjacent values.

@@ -1,10 +1,9 @@
 """User playable view of the game"""
 from ui.quit import Quit
 from ui.seed import SeedUI
-from game.board import Board
-from game.board_utils import Utils as utils
-from game.board_utils import BoardState, Direction
 from ui.menu import Menu
+from game.board import Board
+from game.board_utils import Utils, BoardState, Direction
 
 
 class GameUI():
@@ -20,12 +19,13 @@ class GameUI():
         """Constructor for the class"""
         self.menu = Menu()
         self.seed_ui = SeedUI()
+        self.utils = Utils()
 
     def view(self):
         """Method to start the game"""
         seed = self.seed_ui.view()
         board = Board(seed)
-        print(utils.board_to_string(board))
+        print(self.utils.board_to_string(board))
 
         commands = [
             {
@@ -62,7 +62,7 @@ class GameUI():
                     command()
                 else:
                     board.move(command)
-                    print(utils.board_to_string(board, redraw=True))
+                    print(self.utils.board_to_string(board, redraw=True))
                     if board.state == BoardState.LOST:
                         print("GAME LOST!")
                         self.__quit_game()

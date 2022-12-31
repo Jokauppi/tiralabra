@@ -2,8 +2,7 @@
 
 import random
 import numpy as np
-from game.board_utils import Utils as utils
-from game.board_utils import BoardState, Direction
+from game.board_utils import Utils, BoardState, Direction
 
 
 class Board():
@@ -47,6 +46,8 @@ class Board():
                 Used to prevent the seed being set every tim
                 a copy is made of the state e.g. in an algorithm.
         """
+        self.utils = Utils()
+
         self.seed = seed
         if set_seed:
             random.seed(self.seed)
@@ -88,10 +89,10 @@ class Board():
 
                 if direction == Direction.UP:
                     (new_line, line_modified,
-                     line_score) = utils.pull_line(old_line)
+                     line_score) = self.utils.pull_line(old_line)
                 else:
                     (new_line, line_modified,
-                     line_score) = utils.push_line(old_line)
+                     line_score) = self.utils.push_line(old_line)
 
                 if line_modified:
                     self.__set_column(line, new_line)
@@ -104,10 +105,10 @@ class Board():
 
                 if direction == Direction.LEFT:
                     (new_line, line_modified,
-                     line_score) = utils.pull_line(old_line)
+                     line_score) = self.utils.pull_line(old_line)
                 else:
                     (new_line, line_modified,
-                     line_score) = utils.push_line(old_line)
+                     line_score) = self.utils.push_line(old_line)
 
                 if line_modified:
                     self.__set_row(line, new_line)
@@ -151,11 +152,11 @@ class Board():
         """Checks whether the game is lost and sets the state attribute accordingly."""
         for row in range(self.size):
             line = self.__get_row(row)
-            if utils.is_line_movable(line):
+            if self.utils.is_line_movable(line):
                 return
         for col in range(self.size):
             line = self.__get_column(col)
-            if utils.is_line_movable(line):
+            if self.utils.is_line_movable(line):
                 return
         self.state = BoardState.LOST
 
@@ -265,7 +266,7 @@ class Board():
 
     def __str__(self) -> str:
         """Gets the string representation of the board."""
-        utils.board_to_string(self)
+        str(self.utils.board_to_string(self))
 
     def __copy__(self):
         """Creates a copy of the board instance. The seed is not reset."""

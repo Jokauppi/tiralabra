@@ -1,8 +1,7 @@
 """Runs a game algorithm in visual mode."""
 from time import sleep
 from game.board import Board
-from game.board_utils import BoardState
-from game.board_utils import Utils as utils
+from game.board_utils import Utils, BoardState
 from ui.menu import Menu
 from ui.algorithm_menu import AlgorithmMenu
 import random
@@ -22,6 +21,7 @@ class AIVisual():
         """Constructor for the class."""
         self.menu = Menu()
         self.algorithm_menu = AlgorithmMenu()
+        self.utils = Utils()
 
     def view(self):
         """Method for starting the visual view"""
@@ -63,11 +63,11 @@ class AIVisual():
         seed = random.getrandbits(24)
         print("Seed: " + str(seed))
         board = Board(seed, board_size=4)
-        print(utils.board_to_string(board))
+        print(self.utils.board_to_string(board))
         while board.state == BoardState.INPROGRESS:
             move = ai.get_move(board)
             board.move(move)
-            print(utils.board_to_string(board, redraw=True))
+            print(self.utils.board_to_string(board, redraw=True))
             if speed > 0:
                 sleep(speed)
         if board.state == BoardState.LOST:
@@ -76,8 +76,8 @@ class AIVisual():
             print("Board won!")
             # Continue after win
             print("Game continued after win:")
-            print(utils.board_to_string(board))
+            print(self.utils.board_to_string(board))
             while board.state != BoardState.LOST:
                 move = ai.get_move(board)
                 board.move(move)
-                print(utils.board_to_string(board, redraw=True))
+                print(self.utils.board_to_string(board, redraw=True))
