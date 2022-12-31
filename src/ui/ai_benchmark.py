@@ -73,7 +73,7 @@ class AIBenchmark():
                 move_times.append(move_end - move_start)
 
             if board.state == BoardState.LOST:
-                print("Game " + str(game) + ": LOST")
+                print("Game " + str(game + 1) + ": LOST")
             else:
                 game_end = time.clock_gettime_ns(clock)
                 game_times.append(game_end - game_start)
@@ -108,14 +108,14 @@ Games played: {game_amount}
 Win%: {wins / game_amount * 100}
 Max score: {max(scores)}
 Avg score: {sum(scores) / len(scores)}
-Avg time per move: {str(timedelta(microseconds=((sum(move_times) / len(move_times)) / 1000)))}
-Avg time to victory: {avg_victory_time}
+Avg time per move: {str(timedelta(microseconds=((sum(move_times) / len(move_times)) / 1000)))} (h:min:s)
+Avg time to victory: {avg_victory_time} (h:min:s)
 Max highest number: {max(max_numbers)}
 Median highest number: {max_numbers[len(max_numbers) // 2]}
         """)
 
         max_number_occurrences = Counter(max_numbers)
-        print("=========\nHIGHEST NUMBERS OCCURRENCES")
+        print("HIGHEST NUMBERS OCCURRENCES\n=========")
         for number in list(max_number_occurrences):
             print((str(number) + ":").ljust(7) +
                   max_number_occurrences[number] * "*")

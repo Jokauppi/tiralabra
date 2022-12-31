@@ -41,10 +41,12 @@ class AlgorithmMenu():
         ]
 
         ai = self.menu.show(ai_choices, "Choose algorithm", cancel=False)
+        print(f'Chosen algorithm: {ai.__class__.__name__}')
 
         if hasattr(ai, "set_heuristics"):
             heuristics = self.menu.show(
                 ai.get_heuristics(), "Choose heuristics", cancel=False)
+            print(f'Chosen Heuristics: {heuristics.__name__}')
             ai.set_heuristics(heuristics)
 
         if hasattr(ai, "set_depth"):

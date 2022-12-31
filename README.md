@@ -1,9 +1,15 @@
-# Tiralabra: 2048 -teko-äly
+# Tiralabra: 2048-tekoäly
 
 [![Build](https://github.com/Jokauppi/tiralabra/actions/workflows/build.yml/badge.svg)](https://github.com/Jokauppi/tiralabra/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/Jokauppi/tiralabra/branch/main/graph/badge.svg?token=0C7FDQGO47)](https://codecov.io/gh/Jokauppi/tiralabra)
 
 Tietorakenteet ja algoritmit harjoitustyö 2022 - 2. periodi.
+
+Expectimax-algoritmi pelin 2048 pelaamiseen.
+
+## Käyttöohje
+
+[Käyttöohje](dokumentaatio/käyttöohje.md)
 
 ## Viikkoraportit
 
@@ -22,6 +28,8 @@ Tietorakenteet ja algoritmit harjoitustyö 2022 - 2. periodi.
 ## Määrittely
 [määrittelydokumentti](dokumentaatio/määrittelydokumentti.md)
 
-## Käyttöohje
+## Testaus
+[testausdokumentti](dokumentaatio/testausdokumentti.md)
 
-[Käyttöohje](dokumentaatio/käyttöohje.md)
+## Toteutus
+[toteutusdokumentti](dokumentaatio/toteutusdokumentti.md)

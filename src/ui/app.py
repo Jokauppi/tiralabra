@@ -28,13 +28,13 @@ class App():
         commands = [
             {
                 "action": self.ai_ui.view,
-                "message": "AI play",
+                "message": "Algorithm play",
                 "shortcut": "a"
             },
             {
                 "action": self.game_ui.view,
-                "message": "Manual play",
-                "shortcut": "s"
+                "message": "Human play",
+                "shortcut": "h"
             },
             {
                 "action": self.quit_program,

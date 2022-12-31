@@ -35,7 +35,7 @@ class AIUI():
             },
             {
                 "action": self.ai_benchmark,
-                "message": "AI benchmarking",
+                "message": "Algorithm benchmarking",
                 "shortcut": "a"
             }
         ]
