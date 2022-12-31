@@ -42,5 +42,5 @@ class AIUI():
 
         try:
             self.menu.show(commands).view()
-        except BaseException:
+        except Exception:
             pass

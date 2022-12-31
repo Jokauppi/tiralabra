@@ -265,6 +265,7 @@ class Board():
         self.board[:, index] = values
 
     def __str__(self) -> str:
+        # pylint: disable=invalid-str-returned
         """Gets the string representation of the board."""
         str(self.utils.board_to_string(self))
 

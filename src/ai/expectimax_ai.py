@@ -191,12 +191,12 @@ class ExpectimaxAI ():
         if board.state == BoardState.LOST:
             return 0
 
-        sum = 0
+        board_value = 0
         for i in range(board.size):
             for j in range(board.size):
-                sum += (i + j) * board.board[i][j]
+                board_value += (i + j) * board.board[i][j]
 
-        return sum
+        return board_value
 
     def edge(self, board: Board):
         """

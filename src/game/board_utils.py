@@ -70,14 +70,14 @@ class Utils():
 
         # pylint: disable=unsubscriptable-object, unsupported-assignment-operation
 
-        max = len(line)
+        line_end = len(line)
         pointer_1 = 0
         pointer_2 = 1
 
         modified = False
         score = 0
 
-        while pointer_2 < max:
+        while pointer_2 < line_end:
             if line[pointer_2] > 0 and line[pointer_1] == 0:
                 line[pointer_1] = line[pointer_2]
                 line[pointer_2] = 0
@@ -125,7 +125,7 @@ class Utils():
             board_object,
             redraw=False,
             bottom_buffer=0,
-            score=True):
+            score=True) -> str:
         """
         Provides a string representation of the board state and score.
 
@@ -159,13 +159,13 @@ class Utils():
             number_line = "║"
             for number in row:
                 if number == 0:
-                    number_line += '\33[30m{:4d}\33[0m║'.format(number)
+                    number_line += f'\33[30m{number:4d}\33[0m║'
                 elif number > 64:
-                    number_line += '\33[33m{:4d}\33[0m║'.format(number)
+                    number_line += f'\33[33m{number:4d}\33[0m║'
                 elif number > 4:
-                    number_line += '\33[31m{:4d}\33[0m║'.format(number)
+                    number_line += f'\33[31m{number:4d}\33[0m║'
                 else:
-                    number_line += '{:4d}║'.format(number)
+                    number_line += f'{number:4d}║'
             number_line += "\n"
             middle_lines += number_line
             if index < size - 1:

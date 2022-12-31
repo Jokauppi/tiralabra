@@ -91,29 +91,19 @@ class AIBenchmark():
         except BaseException:
             avg_victory_time = "-"
 
-        print("""
+        print(f"""
 SUMMARY
 =========
 Wins: {wins}
-Games played: {played}
-Win%: {win_percent}
-Max score: {max_score}
-Avg score: {avg_score}
-Avg time per move: {move_time}
+Games played: {game_amount}
+Win%: {wins / game_amount * 100}
+Max score: {max(scores)}
+Avg score: {sum(scores) / len(scores)}
+Avg time per move: {str(timedelta(microseconds=((sum(move_times) / len(move_times)) / 1000)))}
 Avg time to victory: {avg_victory_time}
-Max highest number: {max_number}
-Median highest number: {med_number}
-        """.format(
-            wins=wins,
-            played=game_amount,
-            win_percent=wins / game_amount * 100,
-            max_score=max(scores),
-            avg_score=sum(scores) / len(scores),
-            move_time=str(timedelta(microseconds=((sum(move_times) / len(move_times)) / 1000))),
-            avg_victory_time=avg_victory_time,
-            max_number=max(max_numbers),
-            med_number=max_numbers[len(max_numbers) // 2]
-        ))
+Max highest number: {max(max_numbers)}
+Median highest number: {max_numbers[len(max_numbers) // 2]}
+        """)
 
         max_number_occurrences = Counter(max_numbers)
         print("=========\nHIGHEST NUMBERS OCCURRENCES")

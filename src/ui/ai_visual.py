@@ -1,10 +1,10 @@
 """Runs a game algorithm in visual mode."""
+import random
 from time import sleep
 from game.board import Board
 from game.board_utils import Utils, BoardState
 from ui.menu import Menu
 from ui.algorithm_menu import AlgorithmMenu
-import random
 
 
 class AIVisual():
