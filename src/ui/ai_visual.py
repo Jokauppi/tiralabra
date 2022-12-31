@@ -52,7 +52,7 @@ class AIVisual():
         try:
             self.__run_ai(ai, speed)
         except BaseException:
-             traceback.print_exc()
+            traceback.print_exc()
 
     def __run_ai(self, ai, speed):
         """

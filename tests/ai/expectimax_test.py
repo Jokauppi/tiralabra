@@ -87,6 +87,15 @@ class TestExpectimaxZigzagHeuristics:
 
         assert board.board[3][3] == board.get_max_number()
 
+    def test_prevent_loss(self):
+        board = Board(123, initial=np.array([[8, 16, 8, 16], [8, 16, 8, 0], [
+                      32, 64, 32, 64], [128, 256, 128, 256]]), score=10000)
+
+        move = self.algorithm.get_move(board)
+        assert move in (Direction.DOWN, Direction.UP)
+        board.move(move)
+        assert board.state != BoardState.LOST
+
 
 class TestExpectimaxScoreHeuristics:
 
@@ -110,6 +119,16 @@ class TestExpectimaxScoreHeuristics:
         board.move(self.algorithm.get_move(board))
         assert 4 in board.board
 
+    def test_prevent_loss(self):
+        board = Board(123, initial=np.array([[8, 16, 8, 16], [8, 16, 8, 0], [
+                      32, 64, 32, 64], [128, 256, 128, 256]]), score=10000)
+
+        move = self.algorithm.get_move(board)
+        assert move in (Direction.DOWN, Direction.UP)
+        board.move(move)
+        assert board.state != BoardState.LOST
+
+
 class TestExpectimaxCornerHeuristics:
 
     @pytest.fixture(autouse=True)
@@ -130,3 +149,43 @@ class TestExpectimaxCornerHeuristics:
         board.move(self.algorithm.get_move(board))
         board.move(self.algorithm.get_move(board))
         assert board.board[3][3] == 4
+
+    def test_prevent_loss(self):
+        board = Board(123, initial=np.array([[8, 16, 8, 16], [8, 16, 8, 0], [
+                      32, 64, 32, 64], [128, 256, 128, 256]]), score=10000)
+
+        move = self.algorithm.get_move(board)
+        assert move in (Direction.DOWN, Direction.UP)
+        board.move(move)
+        assert board.state != BoardState.LOST
+
+
+class TestExpectimaxEdgeHeuristics:
+
+    @pytest.fixture(autouse=True)
+    def algorithm(self):
+        self.algorithm = ExpectimaxAI()
+        self.algorithm.set_depth(4)
+        self.algorithm.set_heuristics(self.algorithm.edge)
+
+    def test_instant_win(self):
+        board = Board(123, initial=np.array(
+            [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1024, 1024]]), score=18000)
+        board.move(self.algorithm.get_move(board))
+        assert board.state == BoardState.WON
+
+    def test_basic_move(self):
+        board = Board(123, initial=np.array(
+            [[0, 0, 0, 0], [0, 2, 0, 0], [0, 0, 0, 0], [0, 0, 2, 0]]), score=0)
+        board.move(self.algorithm.get_move(board))
+        board.move(self.algorithm.get_move(board))
+        assert board.board[0][0] == 4 or board.board[0][3] == 4 or board.board[3][0] == 4 or board.board[3][3] == 4
+
+    def test_prevent_loss(self):
+        board = Board(123, initial=np.array([[8, 16, 8, 16], [8, 16, 8, 0], [
+                      32, 64, 32, 64], [128, 256, 128, 256]]), score=10000)
+
+        move = self.algorithm.get_move(board)
+        assert move in (Direction.DOWN, Direction.UP)
+        board.move(move)
+        assert board.state != BoardState.LOST

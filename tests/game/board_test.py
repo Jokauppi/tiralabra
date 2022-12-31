@@ -180,7 +180,7 @@ class TestBoardMethods:
 
     def test_put_number(self):
         board = Board(123)
-        board.put_number((2,3), 1024)
+        board.put_number((2, 3), 1024)
         assert board.board[2][3] == 1024
 
     def test_empty_tiles(self):
