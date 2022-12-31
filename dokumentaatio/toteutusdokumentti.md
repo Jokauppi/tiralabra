@@ -32,6 +32,7 @@ Käytetyt heuristiikkafunktiot ovat suhteellisen yksinkertaisia ja ne perustuvat
 
 #### Zigzag
 
+Laudan ruutujen painotukset. Funktio suosii suurempia numeroita suurempien painotuksien ruuduissa.
 ```
 ╔════╦════╦════╦════╗
 ║   4║   5║  12║  13║
@@ -43,7 +44,7 @@ Käytetyt heuristiikkafunktiot ovat suhteellisen yksinkertaisia ja ne perustuvat
 ║   1║   8║   9║  16║
 ╚════╩════╩════╩════╝
 ```
-
+Onnistunein testaamani heuristiikkafunktio matkii tapaa, jolla ihmispelaajatkin usein pelaavat peliä. Funktio pyrki kasaamaan numerot suuruusjärjestykseen jonoon joka kulkee "siksakkia" laudan puolelta toiselle. Näin minimoidaan isompien numeroiden yhdistämiseen tarvittavat siirrot kun tarvittavat numerot on luotu laudalle ja varataan mahdollisimman suuri alue uusien numeroiden muodostamiselle, kun numerot on yhdistetty. Funktio pitää suuret numerot kulmassa ja yhdessä reunassa, jolloin myös maksimoidaan käytettävissä oleva tila pienempien numeroiden yhditämiseen.
 
 #### Corner
 
@@ -58,10 +59,11 @@ Käytetyt heuristiikkafunktiot ovat suhteellisen yksinkertaisia ja ne perustuvat
 ║   3║   4║   5║   6║
 ╚════╩════╩════╩════╝
 ```
+Toiseksi onnistunein heuristiikkafunktio pyrkii kasaamaan suurimman numerot yhteen kulmaan. Funktio toimii lähes kuten zigzag mutta joutuu usein tekemään ylimääräisiä siirtoja poispäin kulmasta yhdistääkseen numeroita ja luodakseen uusia suotuisiin paikkoihin. Suuria numeroita päätyy myös kauaksi toisistaan vasempaan alakulmaan ja oikeaan yläkulmaan jolloin kyseisiä numeroita on haasteellista yhdistää ja tila loppuu pienemmiltä numeroilta kesken.
 
 #### Score
 
-
+Pelissä saa pisteitä yhtistämällä kaksi numeroa, jolloin pisteitä kertyy ydistetyn numeron verran. Täysin pelin pisteytykseen perustuva heuristiikkafunktio on nopeampi suorittaa, mutta ei huomioi mitenkään numeroiden asettelua. Tämän seurauksena suuret numerot päätyvät usein laudan keskelle ja useimmin yhdistettävät pienemmät numerot päätyvät laudan eri puolille hankaliin paikkoihin ja tila loppuu kesken.
 
 #### Edge
 
@@ -76,12 +78,18 @@ Käytetyt heuristiikkafunktiot ovat suhteellisen yksinkertaisia ja ne perustuvat
 ║ 100║  10║  10║ 100║
 ╚════╩════╩════╩════╝
 ```
+Tämä funktio suosii erityisesti kulmia ja reunoja mutta kaikkia kulmia keskenään yhtä paljon. Tämä johtaa siihen, että siirtoja tapahtuu paljon puolelta toiselle ja suuret numerot päätyvät vahvasta painotuksesta huolimatta usein keskelle seuraa sama ongelma kuin pistepohjaisessa funktiossa.
 
 ### Satunnaisalgoritmi
 
 Ennen expectimax-algoritmin toteuttamista loin lähinnä varhaista testaamista varten yksinkertaisen "algoritmin", joka generoi pelille satunnaisia siirtoja. Satunnaisalgoritmin todennäköisyys läpäistä peli on luonnollisesti häviävän pieni, mutta satunnaisalgoritmi toimii hyvänä vertailukohtana varsinkin expectimax-algroitmille toteutetuille huonommille heuristiikkafunktiolle ja algoritmin pienemmille hakusyvyyksille. Satunnaisalgoritmin saavuttama maksimilukujen mediaani on 128. Toiseksi yleisin luku on 64, mutta myös lukuun 256 se pääsee kiitettävän usein. Tätä suurempia lukuja on käytännössä mahdotonta saavuttaa kannettavan tietokoneen testauskapasiteetilla järkevällä aikaskaalalla.
 
 ## Työn kehityskohteet
+Algoritmin onnistumisprosentin kannalta eniten kehitettävää olisi ollut heuristiikka. Lukemieni lähteiden perusteella hyvällä heuristiikkafunktiolla olisi ilman muutoksia itse expectimax-algoritmiin mahdollista päästä huomattavasti suurempiin lukuihin ja voittaa peli käytännössä 100 % ajasta.
+
+Itse expectimax-algoritmin nopeudessa ja pelilaudan manipulointiin liittyvissä metodeissa olisi ollut varaa parantaa suorituskykyä jonkin verran, sillä joillain toteutuksilla on saavutettu sama siirtojen nopeus yhden tai kaksi tasoa suuremmalla hakusyvyydellä
+
+Olisi ollut mielenkiintoista myös tehdä toteutus minimax-algoritmista ja verrata sen toimintaa expectimaxiin.
 
 ## Lähteet
 
