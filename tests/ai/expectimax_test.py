@@ -109,3 +109,24 @@ class TestExpectimaxScoreHeuristics:
         board.move(self.algorithm.get_move(board))
         board.move(self.algorithm.get_move(board))
         assert 4 in board.board
+
+class TestExpectimaxCornerHeuristics:
+
+    @pytest.fixture(autouse=True)
+    def algorithm(self):
+        self.algorithm = ExpectimaxAI()
+        self.algorithm.set_depth(4)
+        self.algorithm.set_heuristics(self.algorithm.corner)
+
+    def test_instant_win(self):
+        board = Board(123, initial=np.array(
+            [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1024, 1024]]), score=18000)
+        board.move(self.algorithm.get_move(board))
+        assert board.state == BoardState.WON
+
+    def test_basic_move(self):
+        board = Board(123, initial=np.array(
+            [[0, 0, 0, 0], [0, 2, 0, 0], [0, 0, 0, 0], [0, 0, 2, 0]]), score=0)
+        board.move(self.algorithm.get_move(board))
+        board.move(self.algorithm.get_move(board))
+        assert board.board[3][3] == 4

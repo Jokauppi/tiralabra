@@ -7,6 +7,12 @@ class TestBoardMoves:
 
     # Test tile movement
 
+    def test_add_tile(self):
+        board = Board(123, initial=np.array(
+            [[0, 0, 0, 0], [0, 0, 8, 0], [0, 0, 0, 0], [0, 0, 0, 0]]), score=16)
+        board.move(Direction.UP)
+        assert 2 in board.board or 4 in board.board
+
     def test_move_up_one_tile(self):
         board = Board(123, initial=np.array(
             [[0, 0, 0, 0], [0, 0, 4, 0], [0, 0, 0, 0], [0, 0, 0, 0]]), score=4)
@@ -157,3 +163,31 @@ class TestBoardMethods:
         assert np.array_equal(desired, board.board)
         assert board.state == BoardState.INPROGRESS
         assert board.score == 0
+
+    def test_board_win_check(self):
+        board = Board(123, initial=np.array(
+            [[0, 0, 0, 0], [0, 0, 2048, 0], [0, 0, 0, 0], [0, 0, 0, 0]]))
+        assert board.state == BoardState.INPROGRESS
+        board.check_state()
+        assert board.state == BoardState.WON
+
+    def test_board_loss_check(self):
+        board = Board(123, initial=np.array(
+            [[2, 4, 2, 4], [4, 8, 4, 8], [8, 16, 8, 16], [16, 32, 16, 32]]))
+        assert board.state == BoardState.INPROGRESS
+        board.check_state()
+        assert board.state == BoardState.LOST
+
+    def test_put_number(self):
+        board = Board(123)
+        board.put_number((2,3), 1024)
+        assert board.board[2][3] == 1024
+
+    def test_empty_tiles(self):
+        board = Board(123)
+        assert len(board.empty_tiles()) == 14
+
+    def test_empty_tiles_full(self):
+        board = Board(123, initial=np.array(
+            [[2, 4, 2, 4], [4, 8, 4, 8], [8, 16, 8, 16], [16, 32, 16, 32]]))
+        assert len(board.empty_tiles()) == 0
