@@ -2,7 +2,6 @@
 import random
 from time import sleep
 from os import getenv
-import traceback
 from game.board import Board
 from game.board_utils import Utils, BoardState
 from ui.menu import Menu
@@ -52,7 +51,7 @@ class AIVisual():
         try:
             self.__run_ai(ai, speed)
         except BaseException:
-            traceback.print_exc()
+            pass
 
     def __run_ai(self, ai, speed):
         """

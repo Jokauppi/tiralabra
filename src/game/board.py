@@ -1,6 +1,7 @@
 """Stores the game state"""
 
 import random
+from math import floor
 import numpy as np
 from game.board_utils import Utils, BoardState, Direction
 
@@ -21,6 +22,8 @@ class Board():
             resulted in no changes on the board. Otherwise None.
             Making this move next would not change the board state.
             Can be used in algorithms to prevent checking unneccessary moves.
+        winning_number (int): The number needed to win the game based on the board size
+            Larger boards require larger numbers since there is more space to construct them.
     """
 
     def __init__(
@@ -62,6 +65,7 @@ class Board():
         self.score = score
         self.last_move = None
         self.immovable_direction = None
+        self.winning_number = 2**(floor((10 * (self.size**2)) / 16) + 1)
 
     def move(self, direction: Direction, add_number=True, check_state=True):
         """
@@ -145,7 +149,7 @@ class Board():
 
     def check_win(self):
         """Checks whether the game is won and sets the state attribute accordingly."""
-        if np.count_nonzero(self.board == 2048):
+        if np.count_nonzero(self.board == self.winning_number):
             self.state = BoardState.WON
 
     def check_loss(self):
