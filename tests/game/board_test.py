@@ -147,6 +147,7 @@ class TestBoardMoves:
         assert np.array_equal(desired, board.board)
         assert board.state == BoardState.LOST
 
+
 class TestBoardMethods:
 
     def test_board_initialization(self):

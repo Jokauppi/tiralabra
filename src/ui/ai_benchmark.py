@@ -1,7 +1,8 @@
 """Runs a game algorithm in benchmark mode."""
-import threading
-import random
 import time
+import random
+import threading
+from os import getenv
 from datetime import timedelta
 from collections import Counter
 from game.board_utils import BoardState
@@ -56,15 +57,21 @@ class AIBenchmark():
         game_times = []
 
         for game in range(game_amount):
+
             seed = random.getrandbits(24)
             game_start = time.clock_gettime_ns(clock)
-            board = Board(seed)
+            size = getenv("BOARD_SIZE")
+            if not size:
+                size = 4
+            board = Board(seed, int(size))
+
             while board.state == BoardState.INPROGRESS:
                 move_start = time.clock_gettime_ns(clock)
                 move = ai.get_move(board)
                 move_end = time.clock_gettime_ns(clock)
                 board.move(move)
                 move_times.append(move_end - move_start)
+
             if board.state == BoardState.LOST:
                 print("Game " + str(game) + ": LOST")
             else:
@@ -72,12 +79,14 @@ class AIBenchmark():
                 game_times.append(game_end - game_start)
                 wins += 1
                 print("Game " + str(game) + ": WON")
+                # Continue game after win
                 while board.state != BoardState.LOST:
                     move_start = time.clock_gettime_ns(clock)
                     move = ai.get_move(board)
                     move_end = time.clock_gettime_ns(clock)
                     board.move(move)
                     move_times.append(move_end - move_start)
+
             scores.append(board.score)
             max_numbers.append(board.get_max_number())
 

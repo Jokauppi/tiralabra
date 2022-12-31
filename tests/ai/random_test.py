@@ -16,7 +16,10 @@ class TestRandomMoves:
         moves = []
         for _ in range(200):
             move = self.algorithm.get_move(board)
-            assert move in [Direction.RIGHT, Direction.LEFT, Direction.UP, Direction.DOWN]
+            assert move in [
+                Direction.RIGHT,
+                Direction.LEFT,
+                Direction.UP,
+                Direction.DOWN]
             moves.append(move)
         assert Direction.UP in moves and Direction.RIGHT in moves
-

@@ -51,7 +51,7 @@ class Utils():
                     pointer_2 -= 1
                 else:
                     pointer_2 -= 1
-            else: # pragma: no cover
+            else:  # pragma: no cover
                 raise Exception("unnoticed line push case")
 
         return (line, modified, score)
@@ -125,7 +125,7 @@ class Utils():
             board_object,
             redraw=False,
             bottom_buffer=0,
-            score=True) -> str: # pragma: no cover
+            score=True) -> str:  # pragma: no cover
         """
         Provides a string representation of the board state and score.
 

@@ -1,6 +1,8 @@
 """Runs a game algorithm in visual mode."""
 import random
 from time import sleep
+from os import getenv
+import traceback
 from game.board import Board
 from game.board_utils import Utils, BoardState
 from ui.menu import Menu
@@ -50,7 +52,7 @@ class AIVisual():
         try:
             self.__run_ai(ai, speed)
         except BaseException:
-            pass
+             traceback.print_exc()
 
     def __run_ai(self, ai, speed):
         """
@@ -61,19 +63,30 @@ class AIVisual():
             speed (float,int): Additional time to wait between moves in seconds.
         """
         seed = random.getrandbits(24)
+
         print("Seed: " + str(seed))
-        board = Board(seed, board_size=4)
+
+        size = getenv("BOARD_SIZE")
+        if not size:
+            size = 4
+
+        board = Board(seed, int(size))
+
         print(self.utils.board_to_string(board))
+
         while board.state == BoardState.INPROGRESS:
             move = ai.get_move(board)
             board.move(move)
+
             print(self.utils.board_to_string(board, redraw=True))
             if speed > 0:
                 sleep(speed)
+
         if board.state == BoardState.LOST:
             print("Board lost!")
         else:
             print("Board won!")
+
             # Continue after win
             print("Game continued after win:")
             print(self.utils.board_to_string(board))
